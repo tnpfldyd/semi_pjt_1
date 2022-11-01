@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h3>detail</h3>
+    <h1>{{ products.title }}</h1>
+    <p>{{ products.created_at }}</p>
+    <h5>{{ products.price }}원</h5>
+    <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}">
+    <p>{{ products.content }}</p>
+    {% comment %} {% if request.user == products.user %} {% endcomment %}
+    <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success ">수정</a>
+    <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger">삭제</a>
+    {% comment %} {% endif %} {% endcomment %}
+  </div>
+{% endblock %}
