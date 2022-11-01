@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<!-- 글 제목, 글 번호, 작성일자, 작성자 -->
+<h3>{{ article.title }}</h3>
+<p>{{ article.pk }}번째 글</p>
+<p>{{ article.created_at }} | {{ article.updated_at }}</p>
+<p>[작성자] {{ article.user.username }}</p>
+
+<!-- 좋아요 -->
+<a href="{% url 'articles:like_article' article.pk %}" style="text-decoration:none">
+{% if request.user in article.like_users.all %}
+  <i class="bi bi-chat-square-heart-fill"></i>
+{% else %}
+  <i class="bi bi-chat-square-heart"></i>
+{% endif %}
+</a> <span>{{ article.like_users.count }}</span>
+
+<hr>
+<!-- 이미지 -->
+{% if article.image %}
+<img src="{{ article.image.url }}" alt="{{ article.image }}">
+{% endif %}
+
+<!-- 글 내용 -->
+<p>{{ article.content }}</p>
+<hr>
+
+<!-- 댓글 -->
+<!-- 작성된 댓글 보여주기 -->
+<p class="fw-bold">[작성된 댓글]</p>
+{% for comment in comments %}
+<a href="">{{ article.user.username }}</a>: {{ comment.content }}
+<form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+  <a class='btn btn-dark' href="">답변</a>
+  <input type="submit" value="삭제">
+</form>
+<!-- 작성된 댓글이 없으면 알림으로 알려주기 -->
+{% empty %}
+<p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
+{% endfor %}
+<hr>
+
+<!-- 댓글 작성 양식 -->
+<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    {% bootstrap_button button_type='submit' content='댓글 작성' %}
+</form>
+<hr>
+
+<!-- 대댓글 작성 양식 -->
+<form method="post" action="{% url 'recomments_create' article.pk %}">
+    {% csrf_token %}
+    {% for recomment in recomment_form %}
+    {% if recomment.label != 'Comment' %}
+    {{ recomment.label }} : {{ recomment }}
+    {% endif %}
+    {% endfor %}
+
+    <input type="hidden" name="comment" value={{ cmment.id }}>
+    <input type="submit" value="답글">
+</form>
+
+{% for recomment in comment.recomment_set.all %}
+{{ recomment }} <br>
+{% endfor %}
+
+<!-- 글 수정/삭제 버튼 및 목록으로 돌아가기 버튼 -->
+{% if request.user == article.user %}
+<p>
+  <a href="{% url 'articles:update' article.pk %}">수정하기</a>
+  <a href="{% url 'articles:delete' article.pk %}">삭제하기</a>
+</p>
+{% endif %}
+<p>
+  <a href="{% url 'articles:index' %}">목록으로</a>
+</p>
+{% endblock content %}
