@@ -41,6 +41,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'emoji_picker',
+    'chats',
     "accounts",
     "widget_tweaks",
     "imagekit",
