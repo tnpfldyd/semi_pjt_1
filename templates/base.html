@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고의 집</title>
+
+    <!-- bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+
+    <!-- bootstrap Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container" style="font-family: 'GmarketSansMedium'">
+        <!-- navBar -->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <!-- 중고의집 로고 -->
+                <a class="navbar-brand text-success" href="{% url 'articles:index' %}" style="text-decoration:none;"><i class="bi bi-house-heart"></i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- 지역 커뮤니티, 중고거래 게시판, 검색 -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#" style="text-decoration:none;">중고거래</a>
+                        </li>
+                        <li>
+                            {{ request.user }}님, 어서오세요!
+                        </li>
+                    </ul>
+
+                    <!-- 검색 Form-->
+                    <form class="d-flex" role="search" style="height:31px;">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success ms-2 fs-6" type="submit" style="height:31px; width:90px;">검색</button>
+                    </form>
+
+                    <!-- 채팅하기 Button -->
+                    <a class='btn btn-dark btn-sm ms-2' href="">채팅하기</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- extends block-->
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+
+</html>
