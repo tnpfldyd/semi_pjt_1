@@ -21,3 +21,11 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+class ReComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    body = models.CharField('대댓글',max_length=150)
+    created_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.body
