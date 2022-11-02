@@ -78,7 +78,6 @@ def delete(request, pk):
 @login_required
 def comments_create(request, pk):
     article = Article.objects.get(pk=pk)
-
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
 
@@ -87,6 +86,7 @@ def comments_create(request, pk):
             comment.article = article
             comment.user = request.user
             comment.save()
+
             return redirect('articles:detail', article.pk)
 
 @login_required
@@ -95,7 +95,24 @@ def comments_delete(request, article_pk, comment_pk):
     comment.delete()
     return redirect('articles:detail', article_pk)
 
+# 대댓글
+@login_required
+def recomments_create(request, article_pk, comment_pk):
+    # 현재 article과 대댓글 달 부모 comment를 저장
+    article = Article.objects.get(pk=article_pk)
+    comment = Comment.objects.get(pk=comment_pk)
 
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.user = request.user
+            comment.parent_comment_id = comment_pk
+            comment.save()
+
+            return redirect('articles:detail', article.pk)
 
 # 좋아요
 @login_required

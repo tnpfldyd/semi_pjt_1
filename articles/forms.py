@@ -14,7 +14,7 @@ class ArticleForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('content', 'parent_comment',)
+        fields = ('content', 'parent_comment')
         labels = {
             'content': '댓글',
         }
