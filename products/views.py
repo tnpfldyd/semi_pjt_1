@@ -1,8 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Products, Location
+from .models import Products
 from .forms import ProductsForm
 from django.contrib.auth.decorators import login_required
-from accounts.models import User
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 # Create your views here.
@@ -15,7 +14,7 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 @login_required
-def create(request):
+def create(request,pk):
     if request.method == "POST":
         form = ProductsForm(request.POST, request.FILES)
         
@@ -67,15 +66,3 @@ def delete(request, products_pk):
     products = get_object_or_404(Products, pk=products_pk)
     products.delete()
     return redirect('products:index')
-
-# location
-@require_POST
-def location(request):
-    if request.method == "POST":
-        location = Location()
-        location.input_lat = request.POST['lat']
-        location.input_lon = request.POST['lon']
-        location.save()
-        print(location.input_lat)
-        # json 형식으로 응답
-        return HttpResponse(content_type='application/json')
