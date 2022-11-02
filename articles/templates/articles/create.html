@@ -6,8 +6,9 @@
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form article_form %}
-    <input type='submit' value='작성'>
-  
+    <input class='btn btn-outline-primary' type='submit' value='작성'>
+    <a class='btn btn-outline-danger' href="{% url 'articles:index' %}">취소</a>
 </form>
+
 
 {% endblock %}

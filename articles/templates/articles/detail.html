@@ -33,27 +33,21 @@
 {% for comment in comments %}
 <a href="">{{ article.user.username }}</a>: {{ comment.content }}
 <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="삭제">
-    {% comment %} <input type="submit" value="대댓글 작성"> {% endcomment %}
-
-    <!-- 댓글 작성 양식 -->
-    <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
-        {% csrf_token %}
-        {% bootstrap_form comment_form %}
-        {% bootstrap_button button_type='submit' content='댓글 작성' %}
-    </form>
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+  {% comment %} <a class='btn btn-outline-success' href="{% url 'articles:comments_create' %}">댓글 답글</a> {% endcomment %}
+  <a class='btn btn-outline-success' href="">댓글 답글</a>
 </form>
 
-<!-- 작성된 댓글이 없으면 알림으로 알려주기 -->
 {% empty %}
 <p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
 {% endfor %}
 <hr>
-
-{% for recomment in comment.recomment_set.all %}
-{{ recomment }} <br>
-{% endfor %}
+<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+{% csrf_token %}
+{% bootstrap_form comment_form %}
+<input type='submit' value="댓글 작성" class="btn btn-outline-primary">
+</form>
 
 <!-- 글 수정/삭제 버튼 및 목록으로 돌아가기 버튼 -->
 {% if request.user == article.user %}

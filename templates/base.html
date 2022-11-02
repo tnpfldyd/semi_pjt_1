@@ -17,48 +17,73 @@
 
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container" style="font-family: 'GmarketSansMedium'">
+    <div class="container">
         <!-- navBar -->
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <!-- 중고의집 로고 -->
-                <a class="navbar-brand text-success" href="{% url 'articles:index' %}" style="text-decoration:none;"><i class="bi bi-house-heart"></i></a>
+                <a class="navbar-brand text-success" href="{% url 'articles:index' %}" style="text-decoration:none;">
+                    <a href="{% url 'articles:index' %}" style="text-decoration:none;" class="text-dark fw-bold"><img src="{% static './images/logo.png' %}" style="width:5rem; height:5rem;"></a>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <!-- 지역 커뮤니티, 중고거래 게시판, 검색 -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                    <span class="navbar-nav me-auto float-start">
+                        {% if request.user.is_authenticated %}
+                        <span class="nav-item">
                             <a class="nav-link text-dark" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#" style="text-decoration:none;">중고거래</a>
-                        </li>
-                        <li>
-                            {{ request.user }}님, 어서오세요!
-                        </li>
-                    </ul>
+                        </span>
+                        <span class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
+                        </span>
+                        <span class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'accounts:index' %}" style="text-decoration:none;">회원관리</a>
+                        </span>
+                    </span>
 
-                    <!-- 검색 Form-->
-                    <form class="d-flex" role="search" style="height:31px;">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success ms-2 fs-6" type="submit" style="height:31px; width:90px;">검색</button>
-                    </form>
-
-                    <!-- 채팅하기 Button -->
-                    <a class='btn btn-dark btn-sm ms-2' href="">채팅하기</a>
+                    <span class="float-end">
+                        <!-- 검색 Form-->
+                        <form role="search" style="height:31px;">
+                            <input class="form-control" type="search" placeholder="검색하기">
+                            <button class="btn btn-outline-success" type="submit">검색</button>
+                        
+                            <!-- 채팅하기 Button -->
+                            <a class='btn btn-dark' href="{% url 'chats:index' %}">채팅하기</a>
+                        </form>
+                    </span>
                 </div>
+
+                <a class="navbar-brand" href="{% url 'articles:index' %}"></a>
+                {% else %}
+                <a class="navbar-brand" href="{% url 'accounts:login' %}"></a>
+                <span>방문해주셔서 감사합니다! 서비스를 이용하시려면 <a href="{% url 'accounts:signup' %}">회원가입</a> 또는 <a href="{% url 'accounts:login' %}">로그인</a>을 해주세요. 😎</span>
+                {% endif %}
+                
             </div>
         </nav>
+
+        {% if request.user.is_authenticated %}
+        <div class="mt-2 mb-2">
+            <span>
+            {{ request.user }}님, 로그인을 환영합니다. 어서오세요!
+            </span>
+
+            <span class="float-end">
+                <a class="btn btn-outline-success" href="" style="text-decoration:none;" role="button">
+                  <i class="bi bi-box-arrow-right"></i>내 프로필</a>
+                <a class="btn btn-outline-danger" href="{% url 'accounts:logout' %}" style="text-decoration:none;" role="button">
+                  <i class="bi bi-box-arrow-right"></i>로그아웃</a>
+            </span>
+        </div>
+        {% endif %}
+
+        
 
         <!-- extends block-->
         {% block content %}
