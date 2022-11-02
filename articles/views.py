@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ArticleForm, CommentForm, ReCommentForm
+from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib import messages
 
@@ -88,13 +88,6 @@ def comments_delete(request, article_pk, comment_pk):
     comment.delete()
     return redirect('articles:detail', article_pk)
 
-
-# 대댓글
-def recomments_create(request, article_pk):
-    recomment_form = ReCommentForm(request.POST)
-    if recomment_form.is_valid():
-        recomment_form.save()
-    return redirect('articles:detail', article_pk)
 
 
 # 좋아요

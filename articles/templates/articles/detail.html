@@ -33,36 +33,23 @@
 {% for comment in comments %}
 <a href="">{{ article.user.username }}</a>: {{ comment.content }}
 <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
-  {% csrf_token %}
-  <a class='btn btn-dark' href="">답변</a>
-  <input type="submit" value="삭제">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+    {% comment %} <input type="submit" value="대댓글 작성"> {% endcomment %}
+
+    <!-- 댓글 작성 양식 -->
+    <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form comment_form %}
+        {% bootstrap_button button_type='submit' content='댓글 작성' %}
+    </form>
 </form>
+
 <!-- 작성된 댓글이 없으면 알림으로 알려주기 -->
 {% empty %}
 <p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
 {% endfor %}
 <hr>
-
-<!-- 댓글 작성 양식 -->
-<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form comment_form %}
-    {% bootstrap_button button_type='submit' content='댓글 작성' %}
-</form>
-<hr>
-
-<!-- 대댓글 작성 양식 -->
-<form method="post" action="{% url 'recomments_create' article.pk %}">
-    {% csrf_token %}
-    {% for recomment in recomment_form %}
-    {% if recomment.label != 'Comment' %}
-    {{ recomment.label }} : {{ recomment }}
-    {% endif %}
-    {% endfor %}
-
-    <input type="hidden" name="comment" value={{ cmment.id }}>
-    <input type="submit" value="답글">
-</form>
 
 {% for recomment in comment.recomment_set.all %}
 {{ recomment }} <br>
