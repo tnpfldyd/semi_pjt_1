@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article, Comment, ReComment
+from .models import Article, Comment
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -18,8 +18,3 @@ class CommentForm(forms.ModelForm):
         labels = {
             'content': '댓글',
         }
-
-class ReCommentForm(forms.ModelForm):
-    class Meta:
-        model = ReComment
-        fields = ('body','comment')
