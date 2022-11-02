@@ -1,7 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load django_bootstrap5 %}
+<div class="col-2 mt-5">
 {% for messageroom in messagerooms %}
 {% if request.user == messageroom.to_user %}
-<a href="{% url 'chat:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p></a>
+<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
+    <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
+    {% endif %}</a>
+
 {% else %}
-<a href="{% url 'chat:detail' messageroom.pk %}"><p>{{ messageroom.to_user }}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p></a>
+<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{ messageroom.to_user }}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
+    <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
+    {% endif %}</a>
 {% endif %}              
 {% endfor %}
+</div>
+{% endblock %}
