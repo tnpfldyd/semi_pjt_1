@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load django_bootstrap5 %}
+{% for messageroom in messagerooms %}
+{% if request.user == messageroom.to_user %}
+<a href="{% url 'chat:detail' messageroom.pk %}">
+  <p>{{messageroom.from_user}}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p>
+</a>
+{% else %}
+<a href="{% url 'chat:detail' messageroom.pk %}">
+  <p>{{ messageroom.to_user }}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p>
+</a>
+{% endif %}
+{% endfor %}
+<div class="container">
+  {% for message in messages %}
+  {% if message.who_id != request.user.id %}
+  <div class="d-flex justify-content-end">
+    <p>{{message.create_at}}</p>
+    <p>{{request.user}}</p>
+    <p>{{message.content}}</p>
+  </div>
+  {% else %}
+  <div class="d-flex justify-content-start">
+    {% if request.user == room_info.to_user %}
+    {{ room_info.from_user }}
+    {% else %}
+    {{ room_info.to_user }}
+    {% endif %}
+    <p>{{message.content}}</p>
+    <p>{{message.create_at}}</p>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% if request.user.id == room_info.from_user_id %}
+  <form action="{% url 'chat:send' room_info.to_user_id %}" method="POST">
+    {% else %}
+    <form action="{% url 'chat:send' room_info.from_user_id %}" method="POST">
+      {% endif %}
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button button_type='submit' content='전송' %}
+    </form>
+</div>
+{% endblock %}

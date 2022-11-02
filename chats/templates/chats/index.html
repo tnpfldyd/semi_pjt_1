@@ -1,0 +1,7 @@
+{% for messageroom in messagerooms %}
+{% if request.user == messageroom.to_user %}
+<a href="{% url 'chat:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p></a>
+{% else %}
+<a href="{% url 'chat:detail' messageroom.pk %}"><p>{{ messageroom.to_user }}<br>{{messageroom.last_message}}<br>{{messageroom.updated_at}}</p></a>
+{% endif %}              
+{% endfor %}
