@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
+
+<div class="card text-center">
+    <div class="card-header">
+        {{user.username}}의 프로필
+    </div>
+    <div class="card-body">
+        <!-- <h5 class="card-title">{{user.username}}의 프로필</h5> -->
+        <img src="../../../static/images/hmm.png" class="rounded-circle" alt="">
+        <p class="card-text"></p>
+        <p class="card-text">이메일 | {{user.email}}</p>
+        <p class="card-text">가입일 | {{user.date_joined}}</p>
+        <!-- {% if request.user == accounts.user %}
+        <a href="#" class="btn btn-primary">수정하기</a> {% endif %} -->
+        <a href="#" class="btn btn-primary">수정하기</a>
+    </div>
+    <div class="card-footer text-muted">
+        팔로잉 수 | {{user.followings.count}} / 팔로워 수 | {{user.followers.count}}
+    </div>
+</div>
+{% endblock content %}
