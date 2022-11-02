@@ -1,7 +1,7 @@
-from tkinter import CASCADE
+
 from django.db import models
 from imagekit.models import ImageSpecField
-from imagekit.processors import Thumbnail, ResizeToFill
+from imagekit.processors import ResizeToFill
 from django.conf import settings
 # Create your models here.
 
@@ -21,6 +21,4 @@ class Products(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
 class Location(models.Model):
-    input_lat = models.DecimalField(max_digits=9, decimal_places=6, null=True)
-    input_lon = models.DecimalField(max_digits=9, decimal_places=6, null=True)
-    product = models.OneToOneField(Products, on_delete=models.CASCADE)
+    trade_location = models.CharField(max_length=100)

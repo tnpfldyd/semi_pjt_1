@@ -1,5 +1,5 @@
 from django import forms
-from .models import Products
+from .models import Products, Location
 
 class ProductsForm(forms.ModelForm):
     class Meta:
