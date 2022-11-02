@@ -10,13 +10,13 @@ class MessageRoom(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="receiver_user"
     )
     count = models.IntegerField(default=0)
-    last_user = models.CharField(max_length=50)
+    last_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='last')
     last_message = models.TextField()
     updated_at = models.DateTimeField(auto_now=True)
 
 class DirectMessage(models.Model):
     room_number = models.ForeignKey(MessageRoom, on_delete=models.CASCADE)
-    who = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="who")
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="recipient_name")
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
