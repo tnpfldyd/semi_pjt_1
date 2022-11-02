@@ -12,6 +12,7 @@
               <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
                 <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
               </a>
+              <p>{{ product.user.username }}</p>
               <p class="card-text ">{{ product.price }}원</p>
             </div>
           </div>
