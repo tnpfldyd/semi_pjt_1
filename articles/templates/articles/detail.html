@@ -31,13 +31,26 @@
 <!-- 작성된 댓글 보여주기 -->
 <p class="fw-bold">[작성된 댓글]</p>
 {% for comment in comments %}
-<a href="">{{ article.user.username }}</a>: {{ comment.content }}
-<form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="삭제">
-  {% comment %} <a class='btn btn-outline-success' href="{% url 'articles:comments_create' %}">댓글 답글</a> {% endcomment %}
-  <a class='btn btn-outline-success' href="">댓글 답글</a>
-</form>
+  <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'accounts:profile' article.user.username %}">{{ article.user.username }}</a>:
+    {{ comment.content }} {{ comment.parent_comment_id }}
+    <p class="float-end"> <input type="submit" value="삭제"></p>
+    {% comment %} <a class='btn btn-outline-success' href="{% url 'articles:comments_create' %}">댓글 답글</a> {% endcomment %}
+  </form>
+
+    {% if comment.parent_comment_id == null %}
+    <form action="{% url 'articles:recomments_create' article.pk comment.pk %}" method="POST" id="main_form" class="comment_form">
+      <div>
+          &nbsp; &nbsp;<label for="comment">└─ 대댓글</label>
+          <input type="text" name="content"> <input type="hidden" value="{{ comment.pk }}" name="parent">
+          {% csrf_token %}
+          <input type="submit" value="대댓글 등록"></div>
+      </div>
+    </form>
+    {% else %}
+    {{ comment.content }}
+    {% endif %}
 
 {% empty %}
 <p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
@@ -59,4 +72,5 @@
 <p>
   <a href="{% url 'articles:index' %}">목록으로</a>
 </p>
+
 {% endblock content %}
