@@ -21,7 +21,7 @@ def signin(request):
         form = AuthenticationForm(request, data=request.POST) # 사용자가 입력한 내용
         if form.is_valid(): # 유효성 검사
             login(request, form.get_user())
-            return redirect('accounts:index') # 통과하면 로그인 후에 리다이렉트
+            return redirect('articles:index') # 통과하면 로그인 후에 articles/index로 리다이렉트
     context = {
         'form': form # 처음에 들어오면 method == 'GET' if문이 실행이 안되므로 18번째 줄 form을 반환,
                     # 만약 POST로 사용자가 입력한 내용이 유효성 검사를 통과 못하는 경우 20번째 줄 form을 반환
@@ -31,7 +31,7 @@ def signin(request):
 @login_required
 def signout(request):
     logout(request)
-    return redirect('accounts:index')
+    return redirect('articles:index')
 
 def profile(request, username):
     user = get_object_or_404(get_user_model(), username=username)
