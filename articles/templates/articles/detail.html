@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
-
+{% load static %}
 {% block content %}
 <!-- 글 제목, 글 번호, 작성일자, 작성자 -->
 <h3>{{ article.title }}</h3>
@@ -34,33 +34,22 @@
   <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
     {% csrf_token %}
     <a href="{% url 'accounts:profile' article.user.username %}">{{ article.user.username }}</a>:
-    {{ comment.content }} {{ comment.parent_comment_id }}
+    {{ comment.content }}
     <p class="float-end"> <input type="submit" value="삭제"></p>
     {% comment %} <a class='btn btn-outline-success' href="{% url 'articles:comments_create' %}">댓글 답글</a> {% endcomment %}
   </form>
-
-    {% if comment.parent_comment_id == null %}
     <form action="{% url 'articles:recomments_create' article.pk comment.pk %}" method="POST" id="main_form" class="comment_form">
       <div>
           &nbsp; &nbsp;<label for="comment">└─ 대댓글</label>
           <input type="text" name="content"> <input type="hidden" value="{{ comment.pk }}" name="parent">
           {% csrf_token %}
-          <input type="submit" value="대댓글 등록"></div>
+          <input type="submit" value="대댓글 등록"></div><a id='a' data-comment-id="{{comment.pk}}" href="">대댓글 확인</a><div id="comment-div"></div>
       </div>
     </form>
-    {% else %}
-    {{ comment.content }}
-    {% endif %}
 
 {% empty %}
 <p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
 {% endfor %}
-<hr>
-<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
-{% csrf_token %}
-{% bootstrap_form comment_form %}
-<input type='submit' value="댓글 작성" class="btn btn-outline-primary">
-</form>
 
 <!-- 글 수정/삭제 버튼 및 목록으로 돌아가기 버튼 -->
 {% if request.user == article.user %}
@@ -72,5 +61,6 @@
 <p>
   <a href="{% url 'articles:index' %}">목록으로</a>
 </p>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/article.js' %}"></script>
 {% endblock content %}

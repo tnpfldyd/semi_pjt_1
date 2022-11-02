@@ -1,6 +1,8 @@
 const messageForm = document.querySelector('#message-form')
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
   const toPk = document.querySelector('#to-pk').innerText
+  const mename = document.querySelector('#mename').innerText
+  const notmename = document.querySelector('#notmename').innerText
   messageForm.addEventListener('submit', function(event) {
     event.preventDefault();
     axios({
@@ -18,8 +20,6 @@ const messageForm = document.querySelector('#message-form')
         }
       };
       const resdata = response.data.content;
-      const mename = document.querySelector('#mename').innerText
-      const notmename = document.querySelector('#notmename').innerText
       for (let i = 0; i < resdata.length; i++) {
         const div = document.createElement('div')
         div.className = 'd-flex';
@@ -54,7 +54,7 @@ const messageForm = document.querySelector('#message-form')
             const p2 = document.createElement('img')
             p2.src = `${resdata[i][1]}`
             p3.innerText = `${resdata[i][2]}`;
-            p1.innerText = mename
+            p1.innerText = notmename
             div.appendChild(p1);
             div.appendChild(p2);
             div.appendChild(p3);
@@ -63,7 +63,7 @@ const messageForm = document.querySelector('#message-form')
             const p2 = document.createElement('p')
             p2.innerText = `${resdata[i][1]}`
             p3.innerText = `${resdata[i][2]}`;
-            p1.innerText = mename
+            p1.innerText = notmename
             div.appendChild(p1);
             div.appendChild(p2);
             div.appendChild(p3);
@@ -101,8 +101,6 @@ const messageForm = document.querySelector('#message-form')
         }
       };
       const resdata = response.data.content;
-      const mename = document.querySelector('#mename').innerText
-      const notmename = document.querySelector('#notmename').innerText
       for (let i = 0; i < resdata.length; i++) {
         const div = document.createElement('div')
         div.className = 'd-flex';
@@ -137,7 +135,7 @@ const messageForm = document.querySelector('#message-form')
             const p2 = document.createElement('img')
             p2.src = `${resdata[i][1]}`
             p3.innerText = `${resdata[i][2]}`;
-            p1.innerText = mename
+            p1.innerText = notmename
             div.appendChild(p1);
             div.appendChild(p2);
             div.appendChild(p3);
@@ -146,7 +144,7 @@ const messageForm = document.querySelector('#message-form')
             const p2 = document.createElement('p')
             p2.innerText = `${resdata[i][1]}`
             p3.innerText = `${resdata[i][2]}`;
-            p1.innerText = mename
+            p1.innerText = notmename
             div.appendChild(p1);
             div.appendChild(p2);
             div.appendChild(p3);
@@ -158,4 +156,3 @@ const messageForm = document.querySelector('#message-form')
       message.scrollTop = message.scrollHeight;
     })
   }
-  message.scrollTop = message.scrollHeight;

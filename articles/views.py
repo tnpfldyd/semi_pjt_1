@@ -3,7 +3,7 @@ from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 
 # Create your views here.
 @login_required
@@ -40,7 +40,7 @@ def detail(request, pk):
     context = {
         'article' : article,
         'comment_form' : comment_form,
-        'comments' : article.comment_set.all()
+        'comments' : article.comment_set.filter(parent_comment=None), #애초에 Null 값 제거
     }
 
     return render(request, 'articles/detail.html', context)
@@ -100,7 +100,6 @@ def comments_delete(request, article_pk, comment_pk):
 def recomments_create(request, article_pk, comment_pk):
     # 현재 article과 대댓글 달 부모 comment를 저장
     article = Article.objects.get(pk=article_pk)
-    comment = Comment.objects.get(pk=comment_pk)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -123,3 +122,11 @@ def like_article(request, pk):
     else:
         article.like_users.add(request.user)
     return redirect('articles:detail', pk)
+
+
+def reply(request, comment_pk):
+    temp = Comment.objects.filter(parent_comment_id=comment_pk)
+    arr = []
+    for i in temp:
+        arr.append((i.user.username, i.content))
+    return JsonResponse({'content': arr})
