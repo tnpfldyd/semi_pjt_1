@@ -44,7 +44,7 @@ class ProfileForm(forms.ModelForm):
         )
 
 class CheckPasswordForm(forms.Form):
-    password = forms.CharField(widget = forms.PasswordInput())
+    password = forms.CharField(widget = forms.PasswordInput(), label='')
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
