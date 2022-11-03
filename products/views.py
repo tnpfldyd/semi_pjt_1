@@ -51,20 +51,23 @@ def detail(request, products_pk):
 @login_required
 def update(request, products_pk):
     products = get_object_or_404(Products, pk=products_pk)
+    loca = get_object_or_404(Location, product_id=products_pk)
     # 로그인한 유저와 작성한 유저가 같다면
     if request.user == products.user:
         if request.method == "POST":
             form = ProductsForm(request.POST, request.FILES, instance=products)
+            locationform = LocationForm(request.POST, instance=loca)
             if form.is_valid():
                 # 로그인 구현을 아직 안해서
-                form.save(commit=False)
-                products.user = request.user
                 form.save()
+                locationform.save()
                 return redirect('products:detail', products.pk)
         else:
             form = ProductsForm(instance=products)
+            locationform = LocationForm(instance=loca)
         context = {
-            'form':form,
+            'productform':form,
+            'locationform' : locationform,
         }
         return render(request, 'products/form.html', context)
     # 작성자가 아닐 때

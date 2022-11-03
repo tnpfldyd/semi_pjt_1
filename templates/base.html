@@ -17,6 +17,7 @@
 
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -44,15 +45,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'accounts:index' %}" style="text-decoration:none;">회원관리</a>
-                        </li>
                     </ul>
                     <form class="d-flex" role="search" style="height:40px;">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success m" type="submit" style="height:40px; width:80px;">검색</button>
                     </form>
-                    <a class='btn btn-dark m-4' href="{% url 'chats:index' %}">채팅하기</a>
+                    <a class='btn btn-dark ms-2' href="{% url 'chats:index' %}">채팅하기</a>
 
 
                 </div>
@@ -71,13 +69,13 @@
         {% if request.user.is_authenticated %}
         <div class="mt-2 mb-2">
             <span>
-                <a class="navbar-brand " href="{% url 'accounts:profile' user.username %} ">{{request.user}}</a>님, 로그인을 환영합니다. 어서오세요!
+                <a class="navbar-brand ms-4" href="{% url 'accounts:profile' user.username %} ">{{request.user}}</a>님, 로그인을 환영합니다. 어서오세요!
             </span>
 
             <span class="float-end">
                 <!-- <a class="btn btn-outline-success" href="" style="text-decoration:none;" role="button">
                   <i class="bi bi-box-arrow-right"></i>내 프로필</a> -->
-                <a class="btn btn-outline-danger" href="{% url 'accounts:logout' %}" style="text-decoration:none;" role="button">
+                <a class="btn btn-outline-danger mx-4" href="{% url 'accounts:logout' %}" style="text-decoration:none;" role="button">
                   <i class="bi bi-box-arrow-right"></i>로그아웃</a>
             </span>
         </div>
