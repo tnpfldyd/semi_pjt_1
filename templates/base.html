@@ -40,10 +40,10 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark ms-2" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
+                            <a class="nav-link text-dark ms-2 fw-bold" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
+                            <a class="nav-link text-dark fw-bold" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" style="height:40px;">
@@ -63,9 +63,6 @@
         </nav>
 
 
-
-
-
         {% if request.user.is_authenticated %}
         <div class="mt-2 mb-2">
             <span>
@@ -80,8 +77,6 @@
             </span>
         </div>
         {% endif %}
-
-
 
         <!-- extends block-->
         {% block content %} {% endblock content %}

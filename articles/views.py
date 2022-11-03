@@ -36,13 +36,17 @@ def create(request):
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
     comment_form = CommentForm()
+    article.hitCount += 1
+    article.save()
     
     context = {
         'article' : article,
         'comment_form' : comment_form,
-        'comments' : article.comment_set.filter(parent_comment=None), #애초에 Null 값 제거
+        'comments' : article.comment_set.filter(parent_comment__isnull=True), #애초에 Null 값 제거
+        'recomments' : article.comment_set.filter(parent_comment__isnull=False), #애초에 Null 값 제거
+        'hitCount': article.hitCount,
     }
-
+   
     return render(request, 'articles/detail.html', context)
 
 @login_required
@@ -98,20 +102,34 @@ def comments_delete(request, article_pk, comment_pk):
 # 대댓글
 @login_required
 def recomments_create(request, article_pk, comment_pk):
-    # 현재 article과 대댓글 달 부모 comment를 저장
+    # 현재 article 저장
     article = Article.objects.get(pk=article_pk)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
 
         if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.article = article
-            comment.user = request.user
-            comment.parent_comment_id = comment_pk
-            comment.save()
+            recomment = comment_form.save(commit=False)
+            recomment.article = article
+            recomment.user = request.user
+            recomment.parent_comment_id = comment_pk
+            recomment.save()
 
             return redirect('articles:detail', article.pk)
+
+@login_required
+def recomments_delete(request, article_pk, recomment_pk):
+    recomment = Comment.objects.get(pk=recomment_pk)
+    recomment.delete()
+    return redirect('articles:detail', article_pk)
+
+# # 대댓글 출력
+# def reply(request, comment_pk):
+#     temp = Comment.objects.filter(parent_comment_id=comment_pk)
+#     arr = []
+#     for i in temp:
+#         arr.append((i.user.username, i.content))
+#     return JsonResponse({'content': arr})
 
 # 좋아요
 @login_required
@@ -122,11 +140,3 @@ def like_article(request, pk):
     else:
         article.like_users.add(request.user)
     return redirect('articles:detail', pk)
-
-
-def reply(request, comment_pk):
-    temp = Comment.objects.filter(parent_comment_id=comment_pk)
-    arr = []
-    for i in temp:
-        arr.append((i.user.username, i.content))
-    return JsonResponse({'content': arr})

@@ -3,19 +3,28 @@
 {% load static %}
 {% block content %}
 <!-- 글 제목, 글 번호, 작성일자, 작성자 -->
-<h3>{{ article.title }}</h3>
-<p>{{ article.pk }}번째 글</p>
-<p>{{ article.created_at }} | {{ article.updated_at }}</p>
-<p>[작성자] {{ article.user.username }}</p>
+<h2 class="mb-3">[No.{{ article.pk }}] {{ article.title }}</h2>
+<p>
+  <div>
+    <span>
+      {% if article.user.profile.image %}
+        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ article.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
+      {% else %}
+        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
+      {% endif %}
+    </span>
+    <span>
+      <span class="fw-bold ms-2">
+        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }}</a>
+      </span>
+      <div>
+        <span class="text-muted">{{ article.updated_at }}</span>
+        <span class="fw-bold ms-2 text-muted">조회 {{ article.hitCount }}</span>
+      </div>
+    </span>
+  </div>
+</p>
 
-<!-- 좋아요 -->
-<a href="{% url 'articles:like_article' article.pk %}" style="text-decoration:none">
-{% if request.user in article.like_users.all %}
-  <i class="bi bi-chat-square-heart-fill"></i>
-{% else %}
-  <i class="bi bi-chat-square-heart"></i>
-{% endif %}
-</a> <span>{{ article.like_users.count }}</span>
 
 <hr>
 <!-- 이미지 -->
@@ -25,42 +34,113 @@
 
 <!-- 글 내용 -->
 <p>{{ article.content }}</p>
+<span>
+  <a href="{% url 'articles:like_article' article.pk %}" style="text-decoration:none">
+  {% if request.user in article.like_users.all %}
+  <i class="bi bi-heart-fill text-danger"></i>
+  {% else %}
+  <i class="bi bi-heart text-danger"></i>
+  {% endif %}
+  </a> <span>이 글을 좋아해요 {{ article.like_users.count }}</span>
+</span>
 <hr>
 
 <!-- 댓글 -->
 <!-- 작성된 댓글 보여주기 -->
-<p class="fw-bold">[작성된 댓글]</p>
-{% for comment in comments %}
-  <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
-    {% csrf_token %}
-    <a href="{% url 'accounts:profile' article.user.username %}">{{ article.user.username }}</a>:
-    {{ comment.content }}
-    <p class="float-end"> <input type="submit" value="삭제"></p>
-    {% comment %} <a class='btn btn-outline-success' href="{% url 'articles:comments_create' %}">댓글 답글</a> {% endcomment %}
-  </form>
+<p class="fw-bold">[총 {{ article.comment_set.count }}개 댓글]</p>
+<div>
+  {% for comment in comments %}
+    <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+      {% if comment.user.profile.image %}
+        <a href="{% url 'accounts:profile' comment.user.username %}" style="text-decoration:none" class="text-dark">
+          <img src="{{ comment.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 70px; width:70px;">
+        </a>
+      {% else %}
+        <a href="{% url 'accounts:profile' comment.user.username %}" style="text-decoration:none" class="text-dark">
+          <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
+      {% endif %}
+      <a href="{% url 'accounts:profile' comment.user.username %}" style="text-decoration:none" class="text-dark fw-bold">
+        {{ comment.user.username }}
+      </a>
+      : {{ comment.content }}
+      <p class="float-end"> <input class="btn btn-danger" type="submit" value="삭제"></p>
+    </form>
+
+    <!-- 대댓글 작성 폼 -->
     <form action="{% url 'articles:recomments_create' article.pk comment.pk %}" method="POST" id="main_form" class="comment_form">
       <div>
           &nbsp; &nbsp;<label for="comment">└─ 대댓글</label>
           <input type="text" name="content"> <input type="hidden" value="{{ comment.pk }}" name="parent">
           {% csrf_token %}
-          <input type="submit" value="대댓글 등록"></div><a id='a' data-comment-id="{{comment.pk}}" href="">대댓글 확인</a><div id="comment-div"></div>
-      </div>
+          <input type="submit" value="대댓글 등록">
+
+          {% for recomment in recomments %}
+          {% if comment.pk == recomment.parent_comment_id %}
+          <p class="d-flex justify-content-between">
+            <span>
+              &nbsp; &nbsp;└─ 
+              {% if recomment.user.profile.image %}
+                <a href="{% url 'accounts:profile' recomment.user.username %}" style="text-decoration:none" class="text-dark">
+                  <img src="{{ recomment.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 70px; width:70px;">
+                </a>
+              {% else %}
+                <a href="{% url 'accounts:profile' recomment.user.username %}" style="text-decoration:none" class="text-dark">
+                  <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 70px; width:70px;">
+                </a>
+              {% endif %}
+              <a href="{% url 'accounts:profile' recomment.user.username %}" style="text-decoration:none" class="text-dark fw-bold">
+                {{ recomment.user.username }}
+              </a>
+              : {{ recomment.content }}
+            </span>
     </form>
 
-{% empty %}
-<p><span class="text-danger">[System 알림]</span> 앗, 댓글이 없네요!</p>
-{% endfor %}
+            <span class="text-muted">
+              {{ recomment.created_at }}
 
-<!-- 글 수정/삭제 버튼 및 목록으로 돌아가기 버튼 -->
-{% if request.user == article.user %}
-<p>
-  <a href="{% url 'articles:update' article.pk %}">수정하기</a>
-  <a href="{% url 'articles:delete' article.pk %}">삭제하기</a>
-</p>
-{% endif %}
-<p>
-  <a href="{% url 'articles:index' %}">목록으로</a>
-</p>
+              {% if request.user == recomment.user %}
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input class="btn btn-outline-danger" type="submit" value="삭제">
+              </form>
+              {% endif %}
+            </span>
+          </p>
+          {% endif %}
+          {% endfor %}
+          
+          {% comment %} <a id='a' data-comment-id="{{comment.pk}}" href="" class="button">대댓글 확인</a>
+          <a id='a_close' data-comment-id="{{comment.pk}}" href="" class="button">대댓글 닫기</a>
+          <div id="comment-div"></div> {% endcomment %}
+      </div>
+    
+    <hr>
+  {% empty %}
+  <p><span class="text-danger">[System]</span> 앗, 댓글이 없네요! 댓글을 작성해보세요.</p>
+
+  {% endfor %}
+
+  <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" value="댓글 작성">
+  </form>
+
+
+  <!-- 글 수정/삭제 버튼 및 목록으로 돌아가기 버튼 -->
+  {% if request.user == article.user %}
+  <p>
+    <a href="{% url 'articles:update' article.pk %}" class="btn btn-primary">수정하기</a>
+    <a href="{% url 'articles:delete' article.pk %}" class="btn btn-primary">삭제하기</a>
+  </p>
+  {% endif %}
+  <p>
+    <a href="{% url 'articles:index' %}" class="btn btn-primary mt-2">목록으로</a>
+  </p>
+</div>
+{% comment %} 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/article.js' %}"></script>
+<script src="{% static 'js/article.js' %}"></script> {% endcomment %}
+
 {% endblock content %}
