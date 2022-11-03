@@ -29,7 +29,9 @@ const messageForm = document.querySelector('#message-form')
           const p2 = document.createElement('p');
           if (`${resdata[i][1]}`.includes('/static/imo')) {
             const p3 = document.createElement('img')
-            p3.src = `${resdata[i][1]}`
+            p3.src = `${resdata[i][1]}`;
+            p3.style.height = '125px';
+            p3.style.width = '125px';
             p1.innerText = `${resdata[i][2]}`;
             p2.innerText = mename
             div.appendChild(p1);
@@ -52,7 +54,9 @@ const messageForm = document.querySelector('#message-form')
           const p3 = document.createElement('p');
           if (`${resdata[i][1]}`.includes('/static/imo')) {
             const p2 = document.createElement('img')
-            p2.src = `${resdata[i][1]}`
+            p2.src = `${resdata[i][1]}`;
+            p2.style.height = '125px';
+            p2.style.width = '125px';
             p3.innerText = `${resdata[i][2]}`;
             p1.innerText = notmename
             div.appendChild(p1);
@@ -110,7 +114,9 @@ const messageForm = document.querySelector('#message-form')
           const p2 = document.createElement('p');
           if (`${resdata[i][1]}`.includes('/static/imo')) {
             const p3 = document.createElement('img')
-            p3.src = `${resdata[i][1]}`
+            p3.src = `${resdata[i][1]}`;
+            p3.style.height = '125px';
+            p3.style.width = '125px';
             p1.innerText = `${resdata[i][2]}`;
             p2.innerText = mename
             div.appendChild(p1);
@@ -133,7 +139,9 @@ const messageForm = document.querySelector('#message-form')
           const p3 = document.createElement('p');
           if (`${resdata[i][1]}`.includes('/static/imo')) {
             const p2 = document.createElement('img')
-            p2.src = `${resdata[i][1]}`
+            p2.src = `${resdata[i][1]}`;
+            p2.style.height = '125px';
+            p2.style.width = '125px';
             p3.innerText = `${resdata[i][2]}`;
             p1.innerText = notmename
             div.appendChild(p1);
