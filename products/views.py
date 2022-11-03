@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Products
-from .forms import ProductsForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
@@ -14,28 +14,37 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 @login_required
-def create(request,pk):
+def create(request):
+    productform = ProductsForm()
+    locationform = LocationForm()
     if request.method == "POST":
-        form = ProductsForm(request.POST, request.FILES)
-        
-        if form.is_valid(): # 유효성 검사
+        productform = ProductsForm(request.POST, request.FILES)
+        locationform = LocationForm(request.POST)
+        print(locationform)
+        if productform.is_valid() and locationform.is_valid(): # 유효성 검사
             # 로그인한 유저만 글 작성가능해서
-            products = form.save(commit=False)
+            products = productform.save(commit=False)
             products.user = request.user
-            form.save()
+            products.save()
+            location = locationform.save(commit=False)
+            location.product = products
+            location.save()
             # 일단 임의로 redirect
             return redirect('products:index')
-    else:
-        form = ProductsForm()
     context = {
-        'form':form,
+        'productform':productform,
+        'locationform':locationform,
     }
     return render(request, 'products/form.html', context)
 
 def detail(request, products_pk):
     products = get_object_or_404(Products, pk=products_pk)
+    location = get_object_or_404(Location, product_id=products_pk)
+    products.hit += 1
+    products.save()
     context = {
         'products':products,
+        'location':location,
     }
     return render(request,'products/detail.html', context)
 

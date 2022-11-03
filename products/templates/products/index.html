@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="container">
-    <h1>인덱스</h1>
+    <a href="{% url 'products:create' %}">글쓰기</a>
     <div class="row">
       {% for product in products %}
         <div class="col-3">

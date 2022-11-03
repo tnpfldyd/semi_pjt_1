@@ -17,8 +17,11 @@ class Products(models.Model):
         options={'quality':100}
     )
     price = models.IntegerField()
+    hit = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
 class Location(models.Model):
-    trade_location = models.CharField(max_length=100)
+    trade_locationx = models.CharField(max_length=100)
+    trade_locationy = models.CharField(max_length=100)
+    product = models.OneToOneField(Products, on_delete=models.CASCADE)
