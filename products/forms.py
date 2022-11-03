@@ -10,3 +10,10 @@ class ProductsForm(forms.ModelForm):
             'original_image',
             'price',
         )
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = (
+            'trade_locationx',
+            'trade_locationy',
+        )

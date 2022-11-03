@@ -8,7 +8,10 @@
     <h1>{{ products.title }}</h1>
     <div class="d-flex justify-content-between">
       <p>{{ products.user.username }}</p>
+      <div>
+      <p>{{ products.hit }}</p>
       <p>{{ products.created_at }}</p>
+      </div>
     </div>
     <h5>{{ products.price }}원</h5>
     <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="width:100%">
@@ -29,86 +32,9 @@
     {% comment %} 지도 {% endcomment %}
     <h3 class="my-4">거래장소</h3>
     <div id="map" style="width:100%;height:350px;"></div>
-
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
-    <script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = { 
-            center: new kakao.maps.LatLng(37.553836, 126.969652), // 지도의 중심좌표
-            level: 4 // 지도의 확대 레벨 
-        }; 
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    
-        // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-        if (navigator.geolocation) {
-            
-            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-            navigator.geolocation.getCurrentPosition(function(position) {
-                
-                var lat = position.coords.latitude, // 위도
-                    lon = position.coords.longitude; // 경도
-                
-                var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-                    message = '<div style="padding:5px; width:14rem;">거래장소를 입력해주세요!!</div>'; // 인포윈도우에 표시될 내용입니다
-                
-                // 마커와 인포윈도우를 표시합니다
-                displayMarker(locPosition, message);
-                    
-              });
-            
-        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-            
-            var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-                message = '사용자의 현재 위치를 알 수 없어요..'
-                
-            displayMarker(locPosition, message);
-        }
-
-               // 인포윈도우로 장소에 대한 설명을 표시합니다
-              var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-              });
-              infowindow.open(map, marker);
-
-              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-              map.setCenter(coords);
-
-        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-        function displayMarker(locPosition, message) {
-        
-            // 마커를 생성합니다
-            var marker = new kakao.maps.Marker({  
-                map: map, 
-                position: locPosition
-            }); 
-            
-            var iwContent = message, // 인포윈도우에 표시할 내용
-                iwRemoveable = true;
-        
-            // 인포윈도우를 생성합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content : iwContent,
-                removable : iwRemoveable
-            });
-            
-            // 인포윈도우를 마커위에 표시합니다 
-            infowindow.open(map, marker);
-            
-            // 지도 중심좌표를 접속위치로 변경합니다
-            map.setCenter(locPosition);      
-    
-            // 마커가 드래그 가능하도록 설정합니다 
-            marker.setDraggable(true); 
-    
-        }
-        
-    
-    </script>
-    
-
-    {% comment %} 다른 상품 {% endcomment %}
+    <div id="x" style="display: none;">{{location.trade_locationx}}</div>
+    <div id="y" style="display: none;">{{location.trade_locationy}}</div>
     <h3 class="my-3 mt-5">판매자가 파는 다른 상품</h3>
-    {% comment %} 한번에 최대 n개만 보이고 화살표로 넘길 수 있게 하고 싶은데.. 흠 {% endcomment %}
     <div class="row">
       {% for product in products.user.products_set.all %}
         {% if products.pk != product.pk %}
@@ -128,4 +54,26 @@
       {% endfor %}
     </div>
   </div>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
+  <script>
+    const x = document.querySelector('#x').innerText
+    const y = document.querySelector('#y').innerText
+    console.log(x, y)
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨 
+    }; 
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var markerPosition  = new kakao.maps.LatLng(y, x); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+  </script>
 {% endblock %}
