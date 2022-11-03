@@ -3,7 +3,7 @@
 {% load django_bootstrap5 %}
 {% load static %}
 <div class="d-flex justify-content-between mt-5 row">
-  <div class="col-2" style="overflow: auto; height: 400px;">
+  <div class="col-2" style="overflow: auto; height: 400px;" id="roomdiv">
     {% for messageroom in messagerooms %}
     {% if request.user == messageroom.to_user %}
     <a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}<p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
@@ -23,7 +23,7 @@
       <p>{{message.create_at}}</p>
       <p>{{request.user}}</p>
       {% if '/static/imo' in message.content %}
-      <img src="{{message.content}}">
+      <img src="{{message.content}}" style='height: 125px; width: 125px;'>
       {% else %}
       <p>{{message.content}}</p>
       {% endif %}
@@ -36,7 +36,7 @@
       {{ room_info.to_user }}
       {% endif %}
       {% if '/static/imo' in message.content %}
-      <img src="{{message.content}}">
+      <img src="{{message.content}}" style='height: 125px; width: 125px;'>
       {% else %}
       <p>{{message.content}}</p>
       {% endif %}
@@ -55,23 +55,52 @@
       </div>
     </form>
   </div>
-  <div class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      이모티콘
-    </a>
-  
-    <ul class="dropdown-menu" style="width: 600px;">
-      <div class="row row-cols-4" id="div1">
-        <div><img class="dropdown-item" src="{% static 'imo/1.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/2.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/3.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/4.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/5.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/6.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/7.png' %}" style="width: 125px; height: 125px;"></div>
-        <div><img class="dropdown-item" src="{% static 'imo/8.png' %}" style="width: 125px; height: 125px;"></div>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="ture" aria-controls="collapseOne">
+          이모티콘 모음
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body d-flex">
+          <div class="dropup">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              당근이
+            </a>
+            <ul class="dropdown-menu" style="width: 600px;">
+              <div class="row row-cols-4" id="div1">
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/1.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/2.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/3.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/4.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/5.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/6.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/7.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/carrot/8.png' %}" style="width: 125px; height: 125px;"></div>
+              </div>
+            </ul>
+          </div>
+          <div class="dropup mx-3">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              고양이
+            </a>
+            <ul class="dropdown-menu" style="width: 600px;">
+              <div class="row row-cols-4" id="div1">
+                <div><img class="dropdown-item" src="{% static 'imo/cat/1.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/2.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/3.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/4.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/5.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/6.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/7.png' %}" style="width: 125px; height: 125px;"></div>
+                <div><img class="dropdown-item" src="{% static 'imo/cat/8.png' %}" style="width: 125px; height: 125px;"></div>
+              </div>
+            </ul>
+          </div>
+        </div>
       </div>
-    </ul>
+    </div>
   </div>
 </div>
 <div id="mename" style="display: none;">{{request.user.username}}</div>

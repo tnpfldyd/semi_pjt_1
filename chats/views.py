@@ -41,6 +41,7 @@ def detail(request, room_pk):
 @require_POST
 def send(request, pk):
     form = DirectMessageForm(request.POST)
+    print(form)
     if form.is_valid():
         if MessageRoom.objects.filter(to_user_id=request.user.id, from_user_id=pk).exists():
             room = MessageRoom.objects.get(to_user_id=request.user.id, from_user_id=pk)
