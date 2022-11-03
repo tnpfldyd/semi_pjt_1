@@ -1,21 +1,49 @@
 {% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
 
-<div class="card text-center">
+<div class="card text-center mt-5">
     <div class="card-header">
         {{user.username}}의 프로필
     </div>
     <div class="card-body">
         <!-- <h5 class="card-title">{{user.username}}의 프로필</h5> -->
-        <img src="../../../static/images/hmm.png" class="rounded-circle" alt="">
+        {% if user.profile.image %}
+        <img src="{{user.profile.image.url}}" class="rounded-circle" alt="" style="height: 100px; width:100px;"> {% else %}
+        <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 100px; width:100px;"> {% endif %}
         <p class="card-text"></p>
-        <p class="card-text">이메일 | {{user.email}}</p>
-        <p class="card-text">가입일 | {{user.date_joined}}</p>
-        <!-- {% if request.user == accounts.user %}
-        <a href="#" class="btn btn-primary">수정하기</a> {% endif %} -->
-        <a href="#" class="btn btn-primary">수정하기</a>
+        <p class="card-text">{{user.first_name}} {{user.last_name}}</p>
+        <p class="card-text">introduce | {{user.profile.introduce}}</p>
+        <p class="card-text">nickname | {{user.profile.nickname}}</p>
+        <p class="card-text">email | {{user.email}}</p>
+        {% if request.user == user %}
+        <a href="{% url 'accounts:edit' %}" class="btn btn-outline-dark">수정</a>
+        <a href="{% url 'accounts:editpw' %}" class="btn btn-outline-dark">비밀번호 변경</a>
+        <a href="{% url 'accounts:delete' %}" class="btn btn-outline-dark">탈퇴</a>{% endif %}
     </div>
     <div class="card-footer text-muted">
         팔로잉 수 | {{user.followings.count}} / 팔로워 수 | {{user.followers.count}}
     </div>
+    {% if request.user == user %} {% else %}
+    <a href="{% url 'accounts:follow' user.pk %}" class="text-decoration-none">
+        {% if request.user in user.followers.all %}
+    <button class="btn btn-outline-dark m-2" type="button">
+        팔로우 취소
+    </button>
+{% else %}
+    <button class="btn btn-outline-dark m-2" type="button">
+        팔로우
+    </button>
+</a> {% endif %}{% endif %}
+
 </div>
-{% endblock content %}
+
+
+{%for article in user.article_set.all %}
+<p>
+    <div class="card border-dark mb-3 test" style="max-width: 18rem; display: contents;">
+        <div class="card-header">{{forloop.counter}}</div>
+        <div class="card-body text-dark">
+            <h5 class="card-title"><a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{article.title}}</a></h5>
+        </div>
+    </div>
+</p>
+{% endfor %} {% endblock content %}

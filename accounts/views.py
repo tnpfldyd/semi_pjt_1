@@ -12,7 +12,7 @@ def signup(request):
     form = CustomUserCreationForm(request.POST or None)
     if form.is_valid():
         login(request, form.save())
-        return redirect('accounts:index')
+        return redirect('articles:index')
     return render(request, 'accounts/signup.html', {'form': form})
 
 def signin(request):
