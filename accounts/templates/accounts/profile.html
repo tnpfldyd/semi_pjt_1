@@ -40,12 +40,14 @@
 
 
 {%for article in user.article_set.all %}
-<p>
-    <div class="card border-dark mb-3 test" style="max-width: 18rem; display: contents;">
-        <div class="card-header">{{forloop.counter}}</div>
-        <div class="card-body text-dark">
-            <h5 class="card-title"><a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{article.title}}</a></h5>
+<div class="container">
+    <p>
+        <div class="card border-dark mb-3 test" style="max-width: 18rem; display: contents;">
+            <div class="card-header">{{forloop.counter}}</div>
+            <div class="card-body text-dark">
+                <h5 class="card-title"><a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{article.title}}</a></h5>
+            </div>
         </div>
-    </div>
-</p>
+    </p>
+</div>
 {% endfor %}{% endblock content %}

@@ -1,5 +1,0 @@
-{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %} {% if request.user.is_authenticated %}
-<div class="d-flex justify-content-end mt-5">
-    <a class="btn btn-outline-dark m-1" href="{% url 'accounts:profile' request.user.username %}">{{ request.user.username }}님의 프로필</a>
-    <a href="{% url 'accounts:logout'  %}" class="btn btn-outline-dark m-1">로그아웃</a> {% else %}
-    <a href="{% url 'accounts:login'  %}" class="btn btn-outline-dark m-1">로그인</a> </div>{% endif %} {% endblock content %}

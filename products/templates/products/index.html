@@ -1,23 +1,29 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="container">
 
-{% block content %}
-  <div class="container">
-    <a href="{% url 'products:create' %}">글쓰기</a>
-    <div class="row">
-      {% for product in products %}
-        <div class="col-3">
-          <div class="card" style="width: 18rem;">
-            <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
-                <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
-              </a>
-              <p>{{ product.user.username }}</p>
-              <p class="card-text ">{{ product.price }}원</p>
-            </div>
-          </div>
+    <div class="card text-center my-4">
+        <div class="card-body">
+            <a href="{% url 'products:create' %}" class="fs-4 fw-bold text-decoration-none text-black">글쓰기</a>
         </div>
-      {% endfor %}
     </div>
-  </div>
+
+
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
+                    </a>
+                    <p>{{ product.user.username }}</p>
+                    <p class="card-text ">{{ product.price }}원</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
