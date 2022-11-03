@@ -22,40 +22,44 @@
 <body>
     <div class="container">
         <!-- navBar -->
-
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-
                 <!-- 중고의집 로고 -->
                 <a class="navbar-brand text-success" href="{% url 'articles:index' %}" style="text-decoration:none;">
                     <a href="{% url 'articles:index' %}" style="text-decoration:none;" class="text-dark fw-bold"><img src="{% static './images/logo.png' %}" style="width:5rem; height:5rem;"></a>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- 지역 커뮤니티, 중고거래 게시판, 검색 -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <span class="navbar-nav me-auto float-start">
                         {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link text-dark ms-2" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
-                        </li>
-                        <li class="nav-item">
+                        <span class="nav-item">
+                            <a class="nav-link text-dark" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
+                        </span>
+                    <span class="nav-item">
                             <a class="nav-link text-dark" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
-                        </li>
-                        <li class="nav-item">
+                        </span>
+                    <span class="nav-item">
                             <a class="nav-link text-dark" href="{% url 'accounts:index' %}" style="text-decoration:none;">회원관리</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search" style="height:40px;">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success m" type="submit" style="height:40px; width:80px;">검색</button>
-                    </form>
-                    <a class='btn btn-dark m-4' href="{% url 'chats:index' %}">채팅하기</a>
-
-
+                        </span>
+                    </span>
+                    <div class="">
+                        <span class="">
+                        <!-- 검색 Form-->
+                        <form role=" search " style="height:31px; ">
+                            <input class="form-control " type="search " placeholder="검색하기 ">
+                            <button class="btn btn-outline-success " type="submit ">검색</button>
+                        
+                            <!-- 채팅하기 Button -->
+                        </form>
+                        <a class='btn btn-dark' href="{% url 'chats:index' %} ">채팅하기</a>
+                    </span>
+                    </div>
                 </div>
+
                 <a class="navbar-brand " href="{% url 'articles:index' %} "></a>
                 {% else %}
                 <a class="navbar-brand " href="{% url 'accounts:login' %} "></a>
@@ -64,21 +68,17 @@
             </div>
         </nav>
 
-
-
-
-
         {% if request.user.is_authenticated %}
-        <div class="mt-2 mb-2">
+        <div class="mt-2 mb-2 ">
             <span>
-                <a class="navbar-brand " href="{% url 'accounts:profile' user.username %} ">{{request.user}}</a>님, 로그인을 환영합니다. 어서오세요!
+            {{ request.user }}님, 로그인을 환영합니다. 어서오세요!
             </span>
 
-            <span class="float-end">
-                <!-- <a class="btn btn-outline-success" href="" style="text-decoration:none;" role="button">
-                  <i class="bi bi-box-arrow-right"></i>내 프로필</a> -->
-                <a class="btn btn-outline-danger" href="{% url 'accounts:logout' %}" style="text-decoration:none;" role="button">
-                  <i class="bi bi-box-arrow-right"></i>로그아웃</a>
+            <span class="float-end ">
+                <a class="btn btn-outline-success " href=" " style="text-decoration:none; " role="button ">
+                  <i class="bi bi-box-arrow-right "></i>내 프로필</a>
+                <a class="btn btn-outline-danger " href="{% url 'accounts:logout' %} " style="text-decoration:none; " role="button ">
+                  <i class="bi bi-box-arrow-right "></i>로그아웃</a>
             </span>
         </div>
         {% endif %}
