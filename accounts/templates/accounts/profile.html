@@ -23,7 +23,9 @@
         팔로잉 수 | {{user.followings.count}} / 팔로워 수 | {{user.followers.count}}
     </div>
     {% if request.user == user %} {% else %}
-    <a href="{% url 'accounts:follow' user.pk %}" class="text-decoration-none">
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'chats:first_send' user.pk %}" class="btn btn-outline-dark">DM</a>
+        <a href="{% url 'accounts:follow' user.pk %}" class="text-decoration-none">
         {% if request.user in user.followers.all %}
     <button class="btn btn-outline-dark m-2" type="button">
         팔로우 취소
@@ -33,7 +35,7 @@
         팔로우
     </button>
 </a> {% endif %}{% endif %}
-
+    </div>
 </div>
 
 
@@ -46,4 +48,4 @@
         </div>
     </div>
 </p>
-{% endfor %} {% endblock content %}
+{% endfor %}{% endblock content %}
