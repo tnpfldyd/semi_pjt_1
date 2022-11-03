@@ -3,4 +3,4 @@
 <form action="" method="POST">
     {% csrf_token %} {% bootstrap_form form %} {% bootstrap_button button_type='submit' content='로그인' %}
 </form>
-{% endblock content %}
+<a href="{% url 'accounts:signup' %}" class="btn btn-primary mt-2">회원가입</a> {% endblock content %}

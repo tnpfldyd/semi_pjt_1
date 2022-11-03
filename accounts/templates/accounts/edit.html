@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %} {% bootstrap_form user_change_form %} {% bootstrap_form profile_form %} {% bootstrap_button button_type='submit' content='수정' %}
 </form>
 {% endblock content %}
