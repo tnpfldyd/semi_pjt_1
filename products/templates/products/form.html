@@ -1,24 +1,21 @@
-{% extends 'base.html' %}
-{% load django_bootstrap5 %}
-{% load static %}
-{% block content %}
-  <div class="container">
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% load static %} {% block content %}
+<div class="container">
     {% if request.resolver_match.url_name == 'create' %}
-      <h1>중고 상품 등록</h1>
+    <h1>중고 상품 등록</h1>
     {% else %}
-      <h1>상품 정보 수정</h1>
+    <h1>상품 정보 수정</h1>
     {% endif %}
     <form action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form productform %}
-      <div id="map" style="width:100%;height:350px;"></div>
-      <div id="clickLatlng"></div>
-      <div id="x" style="display: none;">{{locationform.trade_locationx}}</div>
-      <div id="y" style="display: none;">{{locationform.trade_locationy}}</div>
-      {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-outline-primary"%}
+        {% csrf_token %} {% bootstrap_form productform %}
+        <div id="map" style="width:100%;height:350px;"></div>
+        <div id="clickLatlng"></div>
+        <div id="x" style="display: none;">{{locationform.trade_locationx}}</div>
+        <div id="y" style="display: none;">{{locationform.trade_locationy}}</div>
+        <div class="d-flex justify-content-end m-3">
+            {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-outline-primary"%}</div>
     </form>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
     <script src="{% static 'js/product.js' %}"></script>
-  </div>
+</div>
 {% endblock %}

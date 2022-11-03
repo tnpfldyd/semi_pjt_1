@@ -1,71 +1,86 @@
-{% extends 'base.html' %}
-
-{% block content %}
-  <div class="container">
-    <h3>detail</h3>
-    
+{% extends 'base.html' %} {% block content %}
+<div class="container">
     {% comment %} 게시글 정보 {% endcomment %}
     <h1>{{ products.title }}</h1>
     <div class="d-flex justify-content-between">
-      <p>{{ products.user.username }}</p>
-      <div>
-      <p>{{ products.hit }}</p>
-      <p>{{ products.created_at }}</p>
-      </div>
+        <p>글쓴이 | {{ products.user.username }}</p>
+
+        <div>
+            <p>조회수 | {{ products.hit }}</p>
+            <p>{{ products.created_at }}</p>
+        </div>
     </div>
-    <h5>{{ products.price }}원</h5>
-    <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="width:100%">
-    <p>{{ products.content }}</p>
+    <h5>가격 | {{ products.price }}원</h5>
 
-    {% comment %} 버튼 {% endcomment %}
-    {% if request.user == products.user %}
-      <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success ">수정</a>
-      <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger">삭제</a>
-    {% endif %}
-    {% if request.user != products.user %}
-      <a href="" class="btn btn-outline-warning"> 게시글 신고</a>
-    {% endif %}
-    {% if request.user != products.user %}
-      <a href="" class="btn btn-outline-success">채팅하기</a>
-    {% endif %}
-
-    {% comment %} 지도 {% endcomment %}
+    <div class="d-flex justify-content-start my-5">
+        <div class="img_large" style="text-align:center;display:table;width:400px;height:400x;">
+            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;">
+        </div>
+        <p class="ms-5">{{ products.content }}</p>
+    </div>
+    {% comment %} 버튼 {% endcomment %} {% if request.user == products.user %}
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success">수정</a>
+        <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a></div> {% endif %} {% if request.user != products.user %}
+    <a href="" class="btn btn-outline-warning"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
+    <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
     <h3 class="my-4">거래장소</h3>
     <div id="map" style="width:100%;height:350px;"></div>
     <div id="x" style="display: none;">{{location.trade_locationx}}</div>
     <div id="y" style="display: none;">{{location.trade_locationy}}</div>
     <h3 class="my-3 mt-5">판매자가 파는 다른 상품</h3>
-    <div class="row">
-      {% for product in products.user.products_set.all %}
-        {% if products.pk != product.pk %}
-          <div class="col-3">
+    <div class="row mb-5">
+        {% for product in products.user.products_set.all %} {% if products.pk != product.pk %}
+        <div class="col-3">
             <div class="card" style="width: 18rem;">
-              <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
-                  <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
-                </a>
-                <p>{{ product.user.username }}</p>
-                <p class="card-text ">{{ product.price }}원</p>
-              </div>
+                <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
+                    </a>
+                    <p>{{ product.user.username }}</p>
+                    <p class="card-text ">{{ product.price }}원</p>
+                </div>
             </div>
-          </div>
-        {% endif %}
-      {% endfor %}
+        </div>
+        {% endif %} {% endfor %}
     </div>
-  </div>
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
-  <script>
+</div>
+
+<style>
+    .img_large {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .img_large:hover {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        -moz-transform: scale(2);
+        -ms-transform: scale(2);
+        -o-transform: scale(2);
+    }
+</style>
+
+
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
+<script>
     const x = document.querySelector('#x').innerText
     const y = document.querySelector('#y').innerText
     console.log(x, y)
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨 
-    }; 
+        mapOption = {
+            center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨 
+        };
     var map = new kakao.maps.Map(mapContainer, mapOption);
-    var markerPosition  = new kakao.maps.LatLng(y, x); 
+    var markerPosition = new kakao.maps.LatLng(y, x);
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
@@ -74,6 +89,5 @@
 
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-
-  </script>
+</script>
 {% endblock %}

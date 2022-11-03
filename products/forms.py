@@ -10,6 +10,13 @@ class ProductsForm(forms.ModelForm):
             'original_image',
             'price',
         )
+
+        labels = {
+            "title": "제목",
+            "content":"내용",
+            "original_image":"이미지",
+            "price" : "가격",
+        }
 class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
