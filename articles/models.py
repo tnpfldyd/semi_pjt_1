@@ -15,6 +15,7 @@ class Article(models.Model):
                                 options={'quality': 80})
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
+    hitCount = models.IntegerField(default=0)
                             
 class Comment(models.Model):
     content = models.CharField(max_length=300)

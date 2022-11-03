@@ -39,13 +39,13 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark ms-2" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
+                            <a class="nav-link text-dark ms-2 fw-bold" aria-current="page" href="{% url 'articles:index' %}" style="text-decoration:none;">지역 커뮤니티</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
+                            <a class="nav-link text-dark fw-bold" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'accounts:index' %}" style="text-decoration:none;">회원관리</a>
+                            <a class="nav-link text-dark fw-bold" href="{% url 'accounts:index' %}" style="text-decoration:none;">회원관리</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" style="height:40px;">
@@ -65,9 +65,6 @@
         </nav>
 
 
-
-
-
         {% if request.user.is_authenticated %}
         <div class="mt-2 mb-2">
             <span>
@@ -75,15 +72,11 @@
             </span>
 
             <span class="float-end">
-                <!-- <a class="btn btn-outline-success" href="" style="text-decoration:none;" role="button">
-                  <i class="bi bi-box-arrow-right"></i>내 프로필</a> -->
                 <a class="btn btn-outline-danger" href="{% url 'accounts:logout' %}" style="text-decoration:none;" role="button">
                   <i class="bi bi-box-arrow-right"></i>로그아웃</a>
             </span>
         </div>
         {% endif %}
-
-
 
         <!-- extends block-->
         {% block content %} {% endblock content %}
