@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'chats',
     "accounts",
     "articles",
+    'service_center',
     "widget_tweaks",
     "imagekit",
     'products',

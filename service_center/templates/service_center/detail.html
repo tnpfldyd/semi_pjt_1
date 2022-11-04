@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <h1>{{ question.title }}</h1>
+  <p>{{ question.created_at }}</p>
+  {% if question.image %}
+    <img src="{{ question.image.url }}" alt="{{ question.image }}">
+  {% endif %}
+  <p>{{ question.content }}</p>
+  <!-- 답변 -->
+  <!-- 어드민만 답변달 수 있게 -->
+  <form action="{% url 'service_center:comment_create' question.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-primary" %}
+  </form>
+  <div class="my-4">
+    {% for comment in comments %}
+      <p>{{ comment.content }}</p>
+      {% empty %}
+      <p>아직 답변이 없습니다.</p>
+    {% endfor %}
+  </div>
+{% endblock content %}
