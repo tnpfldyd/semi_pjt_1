@@ -5,7 +5,7 @@
 {% block search %}
 <form action="{% url 'articles:search' %}" class="d-flex" role="search" style="height:40px;">
   <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success m" type="submit" style="height:40px; width:80px;">검색</button>
+  <button class="btn btn-outline-success" type="submit" style="height:40px; width:80px;">검색</button>
 </form>
 {% endblock %}
 
@@ -43,45 +43,43 @@
   <a class='btn btn-warning btn-sm fw-bold' href="{% url 'articles:create' %}">글쓰기 <i class="bi bi-pencil"></i></a>
 </div>
 
+<!-- 검색어 입력 시 검색어에 맞는 글만 출력 -->
 {% if search_result %}
   {% for search in search_result %}
-  <!-- 게시판 카드 형태 -->
   <div class="row d-flex justify-content-between">
-      {% for article in articles %}
       <div class="card col-6 my-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            {% if article.image %}
-              <a href="{% url 'articles:detail' article.pk %}"><img src="{{ article.image.url }}" alt="{{ article.image }}" class="card-img-top"></a>
+            {% if search.image %}
+              <a href="{% url 'articles:detail' search.pk %}"><img src="{{ search.image.url }}" alt="{{ search.image }}" class="card-img-top"></a>
             {% else %}
-              <a href="{% url 'articles:detail' article.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
+              <a href="{% url 'articles:detail' search.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
             {% endif %}
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title"><h5><span class="fw-bold"><a href="{% url 'articles:detail' article.pk %}" style="text-decoration:none" class="text-dark">[No.{{ article.pk }}] </span>{{ search.title }}</a></h5></h5>
+              <h5 class="card-title"><h5><span class="fw-bold"><a href="{% url 'articles:detail' search.pk %}" style="text-decoration:none" class="text-dark">[No.{{ search.pk }}] </span>{{ search.title }}</a></h5></h5>
               <p class="card-text fw-lighter text-muted">
                 <span class="mt-3">
-                {% if article.user.profile.image %}
-                <a class="text-dark" href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">
-                  <img src="{{ article.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
+                {% if search.user.profile.image %}
+                <a class="text-dark" href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none" class="text-dark">
+                  <img src="{{ search.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
                 </a>
                 {% else %}
-                <a class="text-dark" href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none">
+                <a class="text-dark" href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none">
                   <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 40px; width:40px;">
                 </a>
                 {% endif %}
-              </span><a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }}</a></p>
+              </span><a href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none" class="text-dark">{{ search.user.username }}</a></p>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
   {% endfor %}
 
+<!-- 모든 글 출력 -->
 {% else %}
-<!-- 게시판 카드 형태 -->
 <div class="row d-flex justify-content-between">
   {% for article in articles %}
   <div class="card col-6 my-3" style="max-width: 540px;">

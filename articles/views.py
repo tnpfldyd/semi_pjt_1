@@ -158,6 +158,7 @@ def like_article(request, pk):
         user.save()
     return redirect('articles:detail', pk)
 
+# 싫어요
 @login_required
 def unlike_article(request, pk):
     article = Article.objects.get(pk=pk)
