@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>고객센터</h1>
+  <h1 class="my-4">나의 문의</h1>
+  <h5>{{ user.reverse_service.count }}개의 문의가 있습니다.</h1>
+  {% for question in user.reverse_service.all %}
+    <a href="{% url 'service_center:detail' question.pk %}" class="text-decoration-none text-dark">
+      <div class="my-4">
+        <p>{{ question.title }}
+          |
+          <span>{{ question.user.username }}</span></p>
+      </div>
+    </a>
+  {% endfor %}
   <a href="{% url 'service_center:question' %}" class="btn btn-outline-warning">문의하기</a>
 {% endblock content %}
