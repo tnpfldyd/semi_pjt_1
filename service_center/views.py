@@ -32,7 +32,8 @@ def question(request):
 @login_required
 def detail(request, service_pk):
     question = ServiceCenter.objects.get(pk=service_pk)
-    if request.user == question.user:
+    
+    if request.user == question.user or request.user.is_superuser:
         comment_form = CommentForm()
         context = {
             'question':question,
@@ -46,13 +47,14 @@ def detail(request, service_pk):
 
 def comment_create(request, service_pk):
     question = get_object_or_404(ServiceCenter, pk=service_pk)
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.service = question
-        comment.user = question.user
-        comment.save()
-    return redirect('service_center:detail', question.pk)
+    if request.user.is_superuser:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.service = question
+            comment.user = question.user
+            comment.save()
+        return redirect('service_center:detail', question.pk)
 
 def update(request, service_pk):
     question = get_object_or_404(ServiceCenter, pk=service_pk)
@@ -73,3 +75,19 @@ def update(request, service_pk):
     else:
         messages.warning(request, '작성자만 수정할 수 있습니다.')
         return redirect('service_center:detail', question.pk)
+    
+def admin_page(request):
+    questions = ServiceCenter.objects.order_by('-pk')
+    if request.user.is_superuser:
+        context = {
+            'questions':questions,
+        }
+        return render(request, 'service_center/admin_page.html', context)
+    else:
+        return redirect('service_center:index')
+
+def delete_comment(request,service_pk, question_pk):
+    if request.user.is_superuser:
+        comment_delete = ServiceComment.objects.get(pk=service_pk)
+        comment_delete.delete()
+    return redirect('service_center:detail', question_pk)
