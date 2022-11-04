@@ -58,52 +58,55 @@
       {% csrf_token %}
       {% bootstrap_form form %}
       <div class="d-flex justify-content-between">
-        <div class="accordion mt-3 p-0" id="accordionExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="ture" aria-controls="collapseOne">
-                이모티콘 모음
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body d-flex">
-                <div class="dropup">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    당근이
-                  </a>
-                  <ul class="dropdown-menu" style="width: 600px;">
-                    <div class="row row-cols-4" id="div1">
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/1.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/2.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/3.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/4.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/5.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/6.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/7.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/carrot/8.png' %}" style="width: 125px; height: 125px;"></div>
-                    </div>
-                  </ul>
-                </div>
-                <div class="dropup mx-3">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    고양이
-                  </a>
-                  <ul class="dropdown-menu" style="width: 600px;">
-                    <div class="row row-cols-4" id="div1">
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/1.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/2.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/3.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/4.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/5.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/6.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/7.png' %}" style="width: 125px; height: 125px;"></div>
-                      <div><img class="dropdown-item" src="{% static 'imo/cat/8.png' %}" style="width: 125px; height: 125px;"></div>
-                    </div>
-                  </ul>
+        <div class="d-flex">
+          <div class="accordion accordion-flush my-3 p-0" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="ture" aria-controls="collapseOne">
+                  이모티콘 모음
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body d-flex">
+                  <div class="dropup">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      당근이
+                    </a>
+                    <ul class="dropdown-menu" style="width: 600px;">
+                      <div class="row row-cols-4" id="div1">
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/1.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/2.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/3.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/4.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/5.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/6.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/7.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/carrot/8.png' %}" style="width: 125px; height: 125px;"></div>
+                      </div>
+                    </ul>
+                  </div>
+                  <div class="dropup mx-3">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      고양이
+                    </a>
+                    <ul class="dropdown-menu" style="width: 600px;">
+                      <div class="row row-cols-4" id="div1">
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/1.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/2.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/3.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/4.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/5.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/6.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/7.png' %}" style="width: 125px; height: 125px;"></div>
+                        <div><img class="dropdown-item" src="{% static 'imo/cat/8.png' %}" style="width: 125px; height: 125px;"></div>
+                      </div>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <a href="{% url 'chats:delete' room_info.pk %}" class="btn btn-outline-danger mx-5">대화 삭제하기</a>
         </div>
         {% bootstrap_button button_type='submit' content='전송' %}
       </div>
