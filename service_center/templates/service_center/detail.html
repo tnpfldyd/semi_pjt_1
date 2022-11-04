@@ -7,14 +7,19 @@
     <img src="{{ question.image.url }}" alt="{{ question.image }}">
   {% endif %}
   <p>{{ question.content }}</p>
+  <a href="{% url 'service_center:update' question.pk %}" class="btn btn-outline-success">수정하기</a>
   <!-- 답변 -->
   <!-- 어드민만 답변달 수 있게 -->
-  <form action="{% url 'service_center:comment_create' question.pk %}" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form comment_form %}
-    {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-primary" %}
-  </form>
+  {% if user.is_superuser %}
+    <form action="{% url 'service_center:comment_create' question.pk %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form comment_form %}
+      {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-primary" %}
+    </form>
+  {% endif %}
+  <hr>
   <div class="my-4">
+    <h4 class="my-3">문의 답변</h3>
     {% for comment in comments %}
       <p>{{ comment.content }}</p>
       {% empty %}

@@ -8,4 +8,5 @@ urlpatterns = [
     path('question/', views.question, name="question"),
     path('<int:service_pk>/', views.detail, name="detail"),
     path('<int:service_pk>/comments/',views.comment_create, name="comment_create"),
+    path('<int:service_pk>/update', views.update, name="update"),
 ]
