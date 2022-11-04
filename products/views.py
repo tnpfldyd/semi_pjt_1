@@ -74,11 +74,14 @@ def update(request, products_pk):
     else:
         return redirect('products:detail', products.pk)
 
+@login_required
 def delete(request, products_pk):
-    products = get_object_or_404(Products, pk=products_pk)
-    products.delete()
+    if request.user == products.user:
+        products = get_object_or_404(Products, pk=products_pk)
+        products.delete()
     return redirect('products:index')
 
+@login_required
 def zzi(request, products_pk):
     product = get_object_or_404(Products, pk=products_pk)
     if request.user in product.zzim.all():
@@ -93,4 +96,14 @@ def zzi(request, products_pk):
         user.celsius += 0.1
         user.celsius = round(user.celsius, 1)
         user.save()
+    return redirect('products:detail', products_pk)
+
+def sold_out(request, products_pk):
+    product = get_object_or_404(Products, pk=products_pk)
+    if request.user == product.user:
+        if product.sold:
+            product.sold = False
+        else:
+            product.sold = True
+        product.save()
     return redirect('products:detail', products_pk)

@@ -21,6 +21,7 @@ class Products(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     zzim = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='zzim_pro')
+    sold = models.BooleanField(default=False)
     
 class Location(models.Model):
     trade_locationx = models.CharField(max_length=100)
