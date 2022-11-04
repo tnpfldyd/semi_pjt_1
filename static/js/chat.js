@@ -51,7 +51,7 @@ const messageForm = document.querySelector('#message-form')
             temp.appendChild(p1);
             div.appendChild(temp)
           }
-          if (`${resdata[i][3]}` !== true) {
+          if (`${resdata[i][3]}` === 'false') {
             const p4 = document.createElement('p')
             p4.className = 'rounded-circle'
             p4.className += ' bg-white fw-bold text-center text-warning position-absolute bottom-0 start-50'
@@ -168,7 +168,7 @@ const messageForm = document.querySelector('#message-form')
             temp.appendChild(p1);
             div.appendChild(temp)
           }
-          if (`${resdata[i][3]}` !== true) {
+          if (`${resdata[i][3]}` === 'false') {
             const p4 = document.createElement('p')
             p4.className = 'rounded-circle'
             p4.className += ' bg-white fw-bold text-center text-warning position-absolute bottom-0 start-50'
