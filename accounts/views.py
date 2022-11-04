@@ -72,6 +72,7 @@ def edit(request):
     }
     return render(request, "accounts/edit.html", context)
 
+@login_required
 def editpw(request):
     form = PasswordChangeForm(request.user) # 처음 들어오면 보이는 폼
     if request.method == 'POST':
@@ -86,6 +87,7 @@ def editpw(request):
     }
     return render(request, 'accounts/editpw.html', context)
 
+@login_required
 def delete(request):
     form = CheckPasswordForm(request.user)
     if request.method == 'POST':
@@ -101,3 +103,40 @@ def delete(request):
 
 def question(request):
     return render(request, 'accounts/question.html')
+
+@login_required
+def block(request, pk):
+    user = get_object_or_404(get_user_model(), pk=pk)
+    if user != request.user:
+        if user.blockers.filter(pk=request.user.pk).exists():
+            user.blockers.remove(request.user)
+            user.celsius += 1
+            user.celsius = round(user.celsius, 1)
+            user.save()
+        else:
+            user.blockers.add(request.user)
+            user.celsius -= 1
+            user.celsius = round(user.celsius, 1)
+            user.save()
+    return redirect('accounts:profile', user.username)
+
+@login_required
+def block_user(request):
+    block_users = request.user.blocking.all()
+    return render(request, 'accounts/block_user.html', {'block_users': block_users})
+
+@login_required
+def block_user_block(request, pk):
+    user = get_object_or_404(get_user_model(), pk=pk)
+    if user != request.user:
+        if user.blockers.filter(pk=request.user.pk).exists():
+            user.blockers.remove(request.user)
+            user.celsius += 1
+            user.celsius = round(user.celsius, 1)
+            user.save()
+        else:
+            user.blockers.add(request.user)
+            user.celsius -= 1
+            user.celsius = round(user.celsius, 1)
+            user.save()
+    return redirect('accounts:block_user')
