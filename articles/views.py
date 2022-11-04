@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ArticleForm, CommentForm
+from .forms import *
 from .models import Article, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -36,14 +36,15 @@ def create(request):
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
     comment_form = CommentForm()
+    recomment_form = ReCommentForm()
     article.hitCount += 1
     article.save()
-    
+    comments = article.comment_set.filter(parent_comment=None)
     context = {
         'article' : article,
         'comment_form' : comment_form,
-        'comments' : article.comment_set.filter(parent_comment__isnull=True), #애초에 Null 값 제거
-        'recomments' : article.comment_set.filter(parent_comment__isnull=False), #애초에 Null 값 제거
+        'comments' : comments, #애초에 Null 값 제거
+        'recomment_form' : recomment_form,
         'hitCount': article.hitCount,
     }
    
@@ -77,7 +78,7 @@ def delete(request, pk):
     return redirect('articles:index')
 
 
-
+dic = {'0':'zero', '1':'one', '2':'two', '3':'three', '4':'four', '5':'five', '6':'six', '7':'seven', '8':'eight', '9':'nine'}
 # 댓글
 @login_required
 def comments_create(request, pk):
@@ -90,7 +91,11 @@ def comments_create(request, pk):
             comment.article = article
             comment.user = request.user
             comment.save()
-
+            temp = ''
+            for i in str(comment.pk):
+                temp += dic[i]
+            comment.text = temp
+            comment.save()
             return redirect('articles:detail', article.pk)
 
 @login_required
@@ -113,6 +118,10 @@ def recomments_create(request, article_pk, comment_pk):
             recomment.article = article
             recomment.user = request.user
             recomment.parent_comment_id = comment_pk
+            temp = ''
+            for i in str(comment_pk):
+                temp += dic[i]
+            recomment.text = temp
             recomment.save()
 
             return redirect('articles:detail', article.pk)
