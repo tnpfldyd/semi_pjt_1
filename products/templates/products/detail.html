@@ -25,9 +25,14 @@
     <h5>가격 | {{ products.price }}원</h5>
 
     <div class="d-flex justify-content-start my-5">
-        <div class="img_large" style="text-align:center;display:table;width:400px;height:400x;">
-            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;">
+        <div class="img_large d-flex align-items-center" style="text-align:center;display:table;width:400px;height:400x;">
+            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;filter:brightness(50%)">
+            <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
+                <img src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
+            </div>
+
         </div>
+
         <p class="ms-5">{{ products.content }}</p>
     </div>
     {% comment %} 버튼 {% endcomment %} {% if request.user == products.user %}
