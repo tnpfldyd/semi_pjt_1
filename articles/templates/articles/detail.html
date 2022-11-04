@@ -15,7 +15,7 @@
     </span>
     <span>
       <span class="fw-bold ms-2">
-        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }} 매너온도 {{ article.user.celsius}}℃</a>
+        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }} 매너온도 {{ article.user.celsius}}℃{% if article.user.celsius < 36.5 %}<i class="bi bi-emoji-frown text-danger"></i>{% elif article.user.celsius == 36.5 %}<i class="bi bi-emoji-neutral"></i>{% else %}<i class="bi bi-emoji-smile text-primary"></i>{% endif %}</a>
       </span>
       <div>
         <span class="text-muted">{{ article.updated_at }}</span>
