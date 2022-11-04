@@ -92,3 +92,6 @@ def delete(request):
         'form': form,
     }
     return render(request, 'accounts/delete.html', context)
+
+def question(request):
+    return render(request, 'accounts/question.html')
