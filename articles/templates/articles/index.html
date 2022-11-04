@@ -35,8 +35,16 @@
 
 
 
+<!-- 인기검색어 -->
+<div class="mt-5">
+  지역 커뮤니티 인기 검색어 순위:
+  {% for search in search_all %}
+  [{{ forloop.counter }}위] {{ search.terms }} 
+  {% endfor %}
+</div>
+
 <!-- 커뮤니티 이름 -->
-<h3 class="mt-5 fw-bold text-center text-warning">인기 지역 커뮤니티</h3>
+<h3 class="mt-5 fw-bold text-center text-warning">지역 커뮤니티</h3>
 
 <!-- 커뮤니티 글쓰기 -->
 <div class='text-end mt-3'>

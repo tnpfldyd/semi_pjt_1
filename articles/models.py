@@ -25,3 +25,8 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     parent_comment = models.ForeignKey('self', on_delete=models.CASCADE,  related_name='recomment', null=True)
     text = models.TextField(blank=True)
+
+class Popularsearch(models.Model):
+    terms = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    searchCount = models.IntegerField(default=1)
