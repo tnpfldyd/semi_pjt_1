@@ -4,15 +4,24 @@
 <div class="col-2 mt-5">
 {% for messageroom in messagerooms %}
 {% if request.user == messageroom.to_user %}
-<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
+<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{% if messageroom.form_user.user.profile.image %}
+    <img src="{{ messageroom.form_user.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
+  {% else %}
+    <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 40px; width:40px;">
+  {% endif %}{{messageroom.from_user}}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
     <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
     {% endif %}</a>
 
 {% else %}
-<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{ messageroom.to_user }}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
+<a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{% if messageroom.to_user.user.profile.image %}
+    <img src="{{ messageroom.to_user.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
+  {% else %}
+    <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 40px; width:40px;">
+  {% endif %}{{ messageroom.to_user }}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
     <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
     {% endif %}</a>
 {% endif %}              
 {% endfor %}
 </div>
+
 {% endblock %}

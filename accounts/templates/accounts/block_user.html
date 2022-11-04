@@ -1,0 +1,5 @@
+
+{% for block_user in block_users %}
+{{ block_user.username }} <a href="{% url 'accounts:block_user_block' block_user.pk %}">차단 취소</a>
+
+{% endfor %}

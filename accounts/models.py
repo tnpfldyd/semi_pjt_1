@@ -8,7 +8,7 @@ from django.conf import settings
 class User(AbstractUser):
     followings = models.ManyToManyField("self", symmetrical=False, related_name="followers")
     celsius = models.FloatField(default=36.5)
-    block_user = models.ManyToManyField('self', symmetrical=False, related_name='block')
+    blocking = models.ManyToManyField('self', symmetrical=False, related_name='blockers')
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

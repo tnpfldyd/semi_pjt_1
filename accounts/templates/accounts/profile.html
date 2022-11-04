@@ -11,14 +11,15 @@
         <img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 100px; width:100px;"> {% endif %}
         <p class="card-text"></p>
         <p class="card-text">{{user.first_name}} {{user.last_name}}</p>
-        <p class="card-text">매너온도 | {{user.celsius}}℃</p>
+        <p class="card-text">매너온도 | {{user.celsius}}℃ {% if user.celsius < 36.5 %}<i class="bi bi-emoji-frown text-danger"></i>{% elif user.celsius == 36.5 %}<i class="bi bi-emoji-neutral"></i>{% else %}<i class="bi bi-emoji-smile text-primary"></i>{% endif %}</p>
         <p class="card-text">introduce | {{user.profile.introduce}}</p>
         <p class="card-text">nickname | {{user.profile.nickname}}</p>
         <p class="card-text">email | {{user.email}}</p>
         {% if request.user == user %}
         <a href="{% url 'accounts:edit' %}" class="btn btn-outline-dark">수정</a>
         <a href="{% url 'accounts:editpw' %}" class="btn btn-outline-dark">비밀번호 변경</a>
-        <a href="{% url 'accounts:delete' %}" class="btn btn-outline-dark">탈퇴</a>{% endif %}
+        <a href="{% url 'accounts:delete' %}" class="btn btn-outline-dark">탈퇴</a>
+        <a href="{% url 'accounts:block_user' %}" class="btn btn-outline-dark">차단 목록</a>{% endif %}
     </div>
     <div class="card-footer text-muted">
         팔로잉 수 | {{user.followings.count}} / 팔로워 수 | {{user.followers.count}}
@@ -28,14 +29,25 @@
         <a href="{% url 'chats:first_send' user.pk %}" class="btn btn-outline-dark">DM</a>
         <a href="{% url 'accounts:follow' user.pk %}" class="text-decoration-none">
         {% if request.user in user.followers.all %}
-    <button class="btn btn-outline-dark m-2" type="button">
+    <button class="btn btn-outline-dark m-2 me-0" type="button">
         팔로우 취소
     </button>
 {% else %}
-    <button class="btn btn-outline-dark m-2" type="button">
+    <button class="btn btn-outline-dark m-2 me-0" type="button">
         팔로우
     </button>
-</a> {% endif %}{% endif %}
+</a> {% endif %}
+<a href="{% url 'accounts:block' user.pk %}" class="text-decoration-none">
+    {% if request.user in user.blockers.all %}
+<button class="btn btn-outline-dark m-2" type="button">
+    차단 취소
+</button>
+{% else %}
+<button class="btn btn-outline-dark m-2" type="button">
+    차단
+</button>
+</a> {% endif %}
+{% endif %}
     </div>
 </div>
 
