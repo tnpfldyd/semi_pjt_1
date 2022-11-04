@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import *
-from .models import Article, Comment
+from .models import Article, Comment, Popularsearch
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -9,8 +9,11 @@ from django.http import JsonResponse
 @login_required
 def index(request):
     articles = Article.objects.order_by('-pk')
+    search_all = Popularsearch.objects.order_by('-searchCount')[:3]
+
     context = {
         'articles' : articles,
+        'search_all': search_all,
     }
     return render(request, 'articles/index.html', context)
 
@@ -40,6 +43,7 @@ def detail(request, pk):
     article.hitCount += 1
     article.save()
     comments = article.comment_set.filter(parent_comment=None)
+
     context = {
         'article' : article,
         'comment_form' : comment_form,
@@ -177,12 +181,25 @@ def unlike_article(request, pk):
     return redirect('articles:detail', pk)
 
 
-# 검색 기능
+# 검색 기능 + 검색어 저장
 def search(request):
     search = request.GET.get("search")
+    search_found = Popularsearch.objects.filter(terms=search)
+    
 
     if search:
+        # index에 검색 결과 뿌려주는 쿼리셋 저장
         search_result = Article.objects.filter(title__contains=search)
+    
+    # 사용자로부터 입력받은 검색어가 이미 있다면 searchCount += 1
+    if search_found:
+        search_exist = Popularsearch.objects.get(terms=search)
+        search_exist.searchCount += 1
+        search_exist.save()
+    else:
+        # 사용자로부터 입력받은 검색어를 DB에 저장
+        Popularsearch.objects.create(terms=search)
+
     context = {
         'search_result': search_result,
     }
