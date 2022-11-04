@@ -11,23 +11,25 @@
 
     <div class="row">
         {% for product in products %}
-        <div class="col-3">
-            <div class="card" style="width: 18rem;" style="display:table;">
-                <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
-                {% if product.sold %}
-                <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
-                    <img class='bg-dark bg-opacity-25 rounded-circle' src="../../../static/images/soldout.png" alt="" style="max-width:285px; max-height:285px;">
-                </div>
-                {% endif %}
-                <div class="card-body">
-                    <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
-                        <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
-                    </a>
-                    <p>{{ product.user.username }}</p>
-                    <p class="card-text ">{{ product.price }}원</p>
-                </div>
-            </div>
-        </div>
+          {% if product.user not in request.user.blocking.all %}
+          <div class="col-3">
+              <div class="card" style="width: 18rem;" style="display:table;">
+                  <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
+                  {% if product.sold %}
+                  <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
+                      <img class='bg-dark bg-opacity-25 rounded-circle' src="../../../static/images/soldout.png" alt="" style="max-width:285px; max-height:285px;">
+                  </div>
+                  {% endif %}
+                  <div class="card-body">
+                      <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
+                          <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
+                      </a>
+                      <p>{{ product.user.username }}</p>
+                      <p class="card-text ">{{ product.price }}원</p>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
         {% endfor %}
     </div>
 </div>
