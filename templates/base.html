@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height:100%;">
 
 <head>
     <meta charset="UTF-8">
@@ -20,8 +20,9 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
-<body>
-    <div class="container">
+<body style="height: 100%;">
+
+    <div class="container" style="min-height: 100%;position:relative;">
         <!-- navBar -->
 
         <nav class="navbar navbar-expand-lg bg-light">
@@ -82,11 +83,11 @@
         {% block content %} {% endblock content %}
     </div>
 
-    <footer class="bg-light fixed bottom-0" style="height:200px;">
+    <footer class="bg-light position-relative bottom-0" style="height:200px; bottom: 0;">
         <div class="container">
             <p class="pt-5">팀장 | 김현정</p>
             <p>팀원 | 김재형 노가빈 이용환</p>
-            <p>회사 소개 | 인재 채용 | 제휴 제안 | 이용 약관 | 개인정보처리방침 | 청소년보호정책 | <span class="fw-bold"><a href="{% url 'accounts:question' %}" class="text-decoration-none text-black">자주 묻는 질문</a></span></p>
+            <p>회사 소개 | 인재 채용 | 제휴 제안 | 이용 약관 | 개인정보처리방침 | 청소년보호정책 | <span class="fw-bold"><a href="{% url 'accounts:quest' %}" class="text-decoration-none text-black">자주 묻는 질문</a></span></p>
         </div>
 
 
