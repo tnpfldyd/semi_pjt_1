@@ -43,8 +43,14 @@ def follow(request, pk):
     if user != request.user:
         if user.followers.filter(pk=request.user.pk).exists():
             user.followers.remove(request.user)
+            user.celsius -= 0.2
+            user.celsius = round(user.celsius, 1)
+            user.save()
         else:
             user.followers.add(request.user)
+            user.celsius += 0.2
+            user.celsius = round(user.celsius, 1)
+            user.save()
     return redirect('accounts:profile', user.username)
 
 @login_required
@@ -92,3 +98,6 @@ def delete(request):
         'form': form,
     }
     return render(request, 'accounts/delete.html', context)
+
+def question(request):
+    return render(request, 'accounts/question.html')

@@ -64,7 +64,7 @@
         {% if request.user.is_authenticated %}
         <div class="mt-2 mb-2">
             <span>
-                <a class="navbar-brand ms-4" href="{% url 'accounts:profile' user.username %} ">{{request.user}}</a>님, 로그인을 환영합니다. 어서오세요!
+                <a class="navbar-brand ms-4" href="{% url 'accounts:profile' request.user.username %} ">{{request.user}}</a>님, 로그인을 환영합니다. 어서오세요!
             </span>
 
             <span class="float-end">
@@ -79,6 +79,18 @@
         <!-- extends block-->
         {% block content %} {% endblock content %}
     </div>
+
+    <footer class="bg-light fixed bottom-0" style="height:200px;">
+        <div class="container">
+            <p class="pt-5">팀장 | 김현정</p>
+            <p>팀원 | 김재형 노가빈 이용환</p>
+            <p>회사 소개 | 인재 채용 | 제휴 제안 | 이용 약관 | 개인정보처리방침 | 청소년보호정책 | <span class="fw-bold"><a href="{% url 'accounts:question' %}" class="text-decoration-none text-black">자주 묻는 질문</a></span></p>
+        </div>
+
+
+    </footer>
+
+
 </body>
 
 </html>

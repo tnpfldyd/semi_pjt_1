@@ -146,8 +146,33 @@ def like_article(request, pk):
     article = Article.objects.get(pk=pk)
     if request.user in article.like_users.all():
         article.like_users.remove(request.user)
+        user = article.user
+        user.celsius -= 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
     else:
         article.like_users.add(request.user)
+        user = article.user
+        user.celsius += 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
+    return redirect('articles:detail', pk)
+
+@login_required
+def unlike_article(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.user in article.unlike_users.all():
+        article.unlike_users.remove(request.user)
+        user = article.user
+        user.celsius += 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
+    else:
+        article.unlike_users.add(request.user)
+        user = article.user
+        user.celsius -= 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
     return redirect('articles:detail', pk)
 
 

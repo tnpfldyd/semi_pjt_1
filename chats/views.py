@@ -208,3 +208,10 @@ def first_send(request, pk):
                 temp.save()
                 return redirect("chats:detail", room.pk)
     return render(request, "chats/send.html", {"form": form})
+
+@login_required
+def delete(request, pk):
+    room = get_object_or_404(MessageRoom, pk=pk)
+    if room.to_user_id == request.user.pk or room.from_user_id == request.user.pk:
+        room.delete()
+    return redirect('chats:index')

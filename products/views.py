@@ -78,3 +78,19 @@ def delete(request, products_pk):
     products = get_object_or_404(Products, pk=products_pk)
     products.delete()
     return redirect('products:index')
+
+def zzi(request, products_pk):
+    product = get_object_or_404(Products, pk=products_pk)
+    if request.user in product.zzim.all():
+        product.zzim.remove(request.user)
+        user = product.user
+        user.celsius -= 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
+    else:
+        product.zzim.add(request.user)
+        user = product.user
+        user.celsius += 0.1
+        user.celsius = round(user.celsius, 1)
+        user.save()
+    return redirect('products:detail', products_pk)
