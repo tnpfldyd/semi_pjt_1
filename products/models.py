@@ -20,6 +20,7 @@ class Products(models.Model):
     hit = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    zzim = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='zzim_pro')
     
 class Location(models.Model):
     trade_locationx = models.CharField(max_length=100)

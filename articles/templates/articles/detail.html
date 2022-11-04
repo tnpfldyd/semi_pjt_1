@@ -15,7 +15,7 @@
     </span>
     <span>
       <span class="fw-bold ms-2">
-        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }}</a>
+        <a href="{% url 'accounts:profile' article.user.username %}" style="text-decoration:none" class="text-dark">{{ article.user.username }} 매너온도 {{ article.user.celsius}}℃</a>
       </span>
       <div>
         <span class="text-muted">{{ article.updated_at }}</span>
@@ -41,7 +41,16 @@
   {% else %}
   <i class="bi bi-heart text-danger"></i>
   {% endif %}
-  </a> <span>이 글을 좋아해요 {{ article.like_users.count }}</span>
+  </a> <span>{{ article.like_users.count }}명이 이 글을 좋아해요</span>
+</span>
+<span>
+  <a href="{% url 'articles:unlike_article' article.pk %}" style="text-decoration:none">
+  {% if request.user in article.unlike_users.all %}
+  <i class="bi bi-emoji-frown-fill text-danger"></i>
+  {% else %}
+  <i class="bi bi-emoji-frown text-danger"></i>
+  {% endif %}
+  </a> <span>{{ article.unlike_users.count }}명이 이 글을 싫어해요</span>
 </span>
 <hr>
 

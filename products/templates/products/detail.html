@@ -3,7 +3,19 @@
     {% comment %} 게시글 정보 {% endcomment %}
     <h1>{{ products.title }}</h1>
     <div class="d-flex justify-content-between">
-        <p>글쓴이 | {{ products.user.username }}</p>
+        <div>
+          <span>
+          {% if products.user.profile.image %}
+              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ products.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
+          {% else %}
+              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
+          {% endif %}
+          </span>
+          <span>
+          <span class="fw-bold ms-2">
+              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark">{{ products.user.username }} 매너온도 {{ products.user.celsius}}℃</a>
+          </span>
+        </div>
 
         <div>
             <p>조회수 | {{ products.hit }}</p>
@@ -26,6 +38,15 @@
     <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
     <h3 class="my-4">거래장소</h3>
     <div id="map" style="width:100%;height:350px;"></div>
+    <div class="text-center mt-3">
+    <a href="{% url 'products:zzi' products.pk %}" style="text-decoration:none">
+        {% if request.user in products.zzim.all %}
+        <i class="bi bi-heart-fill text-danger"></i>
+        {% else %}
+        <i class="bi bi-heart text-danger"></i>
+        {% endif %}
+        </a> <span>{{ products.zzim.count }}명이 이 상품을 찜 했어요.</span>
+    </div>
     <div id="x" style="display: none;">{{location.trade_locationx}}</div>
     <div id="y" style="display: none;">{{location.trade_locationy}}</div>
     <h3 class="my-3 mt-5">판매자가 파는 다른 상품</h3>

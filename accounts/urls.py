@@ -14,5 +14,4 @@ urlpatterns = [
     path('question/',views.question,name='question'),
     path('<str:username>/', views.profile, name='profile'),
     path('<int:pk>/follow/', views.follow, name='follow'),
-    path('<int:pk>/follow/', views.follow, name='follow'),
 ]
