@@ -25,12 +25,13 @@
     <h5>가격 | {{ products.price }}원</h5>
 
     <div class="d-flex justify-content-start my-5">
-        <div class="img_large d-flex align-items-center" style="text-align:center;display:table;width:400px;height:400x;">
-            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;filter:brightness(50%)">
+        <div class="img_large d-flex align-items-center justify-content-center" style="text-align:center;display:table;width:400px;height:400x;">
+            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;">
+            {% if products.sold %}
             <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
-                <img src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
+                <img class='bg-dark bg-opacity-25 rounded-circle' src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
             </div>
-
+            {% endif %}
         </div>
 
         <p class="ms-5">{{ products.content }}</p>
@@ -38,7 +39,9 @@
     {% comment %} 버튼 {% endcomment %} {% if request.user == products.user %}
     <div class="d-flex justify-content-center">
         <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success">수정</a>
-        <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a></div> {% endif %} {% if request.user != products.user %}
+        <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a>
+        <a href="{% url 'products:sold_out' products.pk %}">{% if products.sold %}<button class="btn btn-outline-danger ms-3">판매중</button>{% else %}<button class="btn btn-outline-primary ms-3">거래 완료</button>{% endif %}</a>
+    </div> {% endif %} {% if request.user != products.user %}
     <a href="" class="btn btn-outline-warning"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
     <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
     <h3 class="my-4">거래장소</h3>
