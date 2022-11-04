@@ -46,10 +46,8 @@
                             <a class="nav-link text-dark fw-bold" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" style="height:40px;">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success m" type="submit" style="height:40px; width:80px;">검색</button>
-                    </form>
+                    {% block search %}
+                    {% endblock %}
                     <a class='btn btn-dark ms-2' href="{% url 'chats:index' %}">채팅하기</a>
 
 

@@ -15,4 +15,5 @@ urlpatterns = [
     path('recomments/<int:article_pk>/<int:comment_pk>', views.recomments_create, name='recomments_create'),
     path('recomments/delete/<int:article_pk>/<int:recomment_pk>', views.recomments_delete, name='recomments_delete'),
     path('like_article/<int:pk>', views.like_article, name='like_article'),
+    path('search/', views.search, name='search'),
 ]

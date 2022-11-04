@@ -140,3 +140,15 @@ def like_article(request, pk):
     else:
         article.like_users.add(request.user)
     return redirect('articles:detail', pk)
+
+
+# 검색 기능
+def search(request):
+    search = request.GET.get("search")
+
+    if search:
+        search_result = Article.objects.filter(title__contains=search)
+    context = {
+        'search_result': search_result,
+    }
+    return render(request, 'articles/index.html', context)
