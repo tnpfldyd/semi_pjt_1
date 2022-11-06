@@ -1,144 +1,170 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container">
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
 
     <!-- 상품 이미지 -->
-    <div class="d-flex justify-content-start my-5">
-        <div class="img_large d-flex align-items-center justify-content-center" style="text-align:center;display:table; width:400px; height:400x;">
-            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;" class="rounded">
-            {% if products.sold %}
-            <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
-                <img class='bg-dark bg-opacity-25 rounded-circle' src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- 상품 정보 -->
-        <div class="d-flex flex-column ms-3" style="width:50rem">
-            <h2>{{ products.title }}</h2>
-            <div class="d-flex">
-                <p class="mb-0">조회수 {{ products.hit }}</p>
-                <p class="ms-3 mb-0">{{ products.created_at }}</p>
-            </div>
-            <h3 class="fw-bold mt-2">{{ products.price }}원</h5>
-            <p class="fs-4 mt-2">{{ products.content }}</p>
-        </div>
-    </div>
-    
-    <!-- 프로필 -->
-    <div class="ms-3">
-        <span>
-        {% if products.user.profile.image %}
-            <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ products.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
-        {% else %}
-            <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
+    <div class="d-flex justify-content-start my-5 mb-2">
+      <div class="img_large d-flex align-items-center justify-content-center" style="text-align:center;display:table; width:400px; height:400x;">
+        <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="width:400px; max-height:400px;" class="rounded">
+        {% if products.sold %}
+          <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
+            <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
+          </div>
         {% endif %}
-        </span>
-        <span class="fw-bold ms-2">
-                <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark">{{ products.user.username }}</a>
-                <span>
-                    매너온도 {{ products.user.celsius}}℃
-                    {% if products.user.celsius < 36.5 %}
-                    <i class="bi bi-emoji-frown text-danger"></i>
-                    {% elif products.user.celsius == 36.5 %}
-                    <i class="bi bi-emoji-neutral"></i>
-                    {% else %}
-                    <i class="bi bi-emoji-smile text-primary"></i>
-                    {% endif %}
-                </span>
-        </span>
+      </div>
+
+      <!-- 상품 정보 -->
+      <div class="d-flex flex-column ms-5 mt-2" style="width:50rem">
+        <h2>{{ products.title }}</h2>
+        <div class="d-flex">
+          <p class="mb-0">조회수
+            {{ products.hit }}</p>
+          <p class="ms-3 mb-0">{{ products.created_at }}</p>
+        </div>
+        <h3 class="fw-bold mt-2">{{ products.price }}원</h5>
+        <p class="fs-4 mt-2" style="width:48rem">{{ products.content }}</p>
+      </div>
     </div>
-    
-    {% comment %} 버튼 {% endcomment %} 
+
+    <!-- 프로필 -->
+    <div class="ms-5">
+      <span>
+        {% if products.user.profile.image %}
+          <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ products.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
+        {% else %}
+          <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
+        {% endif %}
+      </span>
+      <span class="fw-bold ms-2">
+        <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark">{{ products.user.username }}</a>
+        <span>
+          매너온도
+          {{ products.user.celsius}}℃
+          {% if products.user.celsius < 36.5 %}
+            <i class="bi bi-emoji-frown text-danger"></i>
+          {% elif products.user.celsius == 36.5 %}
+            <i class="bi bi-emoji-neutral"></i>
+          {% else %}
+            <i class="bi bi-emoji-smile text-primary"></i>
+          {% endif %}
+        </span>
+      </span>
+    </div>
+
+    <!-- 작성자일 경우 -->
     {% if request.user == products.user %}
-    <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         <a href="{% url 'products:index' %}" class="btn btn-primary">목록으로</a>
         <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success ms-3">수정</a>
         <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a>
 
         <a href="{% url 'products:sold_out' products.pk %}">
-            {% if products.sold %}<button class="btn btn-outline-danger ms-3">판매중</button>
-            {% else %}
+          {% if products.sold %}
+            <button class="btn btn-outline-danger ms-3">판매중</button>
+          {% else %}
             <button class="btn btn-outline-primary ms-3">거래 완료</button>
-            {% endif %}</a>
-        </div>
-            {% endif %}
-            {% if request.user != products.user %}
-            <a href="" class="btn btn-outline-warning"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
-            <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
-            <h3 class="my-4">거래장소</h3>
-            <div id="map" style="width:100%;height:350px;"></div>
-            <div class="text-center mt-3">
-            <a href="{% url 'products:zzi' products.pk %}" style="text-decoration:none">
-                {% if request.user in products.zzim.all %}
-                <i class="bi bi-heart-fill text-danger"></i>
-                {% else %}
-                <i class="bi bi-heart text-danger"></i>
-                {% endif %}
-                </a> <span>{{ products.zzim.count }}명이 이 상품을 찜 했어요.</span>
-            </div>
+          {% endif %}
+        </a>
+      </div>
+    {% endif %}
+
+    <!-- 작성자가 아닌 경우 -->
+    <div class="d-flex justify-content-center">
+      {% if request.user != products.user %}
+        <a href="" class="btn btn-outline-warning mx-2">
+          게시글 신고</a>
+      {% endif %}
+      {% if request.user != products.user %}
+        <a href="" class="btn btn-outline-success mx-2">채팅하기</a>
+      {% endif %}
+    </div>
+
+    <!-- 지도 -->
+    <h3 class="my-4">거래장소</h3>
+    <div id="map" style="width:100%;height:350px;"></div>
+    <div class="text-center mt-3">
+      <a href="{% url 'products:zzi' products.pk %}" style="text-decoration:none">
+        {% if request.user in products.zzim.all %}
+          <i class="bi bi-heart-fill text-danger"></i>
+        {% else %}
+          <i class="bi bi-heart text-danger"></i>
+        {% endif %}
+      </a>
+      <span>{{ products.zzim.count }}명이 이 상품을 찜 했어요.</span>
+    </div>
 
     <div id="x" style="display: none;">{{location.trade_locationx}}</div>
     <div id="y" style="display: none;">{{location.trade_locationy}}</div>
     <h3 class="my-3 mt-5">판매자가 파는 다른 상품</h3>
     <div class="row mb-5">
-        {% for product in products.user.products_set.all %} {% if products.pk != product.pk %}
-        <div class="col-3">
+      {% for product in products.user.products_set.all %}
+        {% if products.pk != product.pk %}
+          <div class="col-3">
             <div class="card" style="width: 18rem;">
-                <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
-                        <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
-                    </a>
-                    <p>{{ product.user.username }}</p>
-                    <p class="card-text ">{{ product.price }}원</p>
-                </div>
+              <img src="{{ product.formatted_image.url }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none text-dark">
+                  <h5 class="card-title text-nowrap text-truncate">{{product.title}}</h5>
+                </a>
+                <p>{{ product.user.username }}</p>
+                <p class="card-text ">{{ product.price }}원</p>
+              </div>
             </div>
-        </div>
-        {% endif %} {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
-</div>
+  </div>
 
-<style>
+  <style>
     .img_large {
-        transform: scale(1);
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -ms-transform: scale(1);
-        -o-transform: scale(1);
-        transition: all 0.3s ease-in-out;
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transition: all 0.3s ease-in-out;
     }
-    
+
     .img_large:hover {
-        transform: scale(2);
-        -webkit-transform: scale(2);
-        -moz-transform: scale(2);
-        -ms-transform: scale(2);
-        -o-transform: scale(2);
+      transform: scale(2);
+      -webkit-transform: scale(2);
+      -moz-transform: scale(2);
+      -ms-transform: scale(2);
+      -o-transform: scale(2);
     }
-</style>
+  </style>
 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
+  <script>
+    const x = document
+        .querySelector('#x')
+        .innerText
+      const y = document
+          .querySelector('#y')
+          .innerText
+          console
+          .log(x, y)
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+          mapOption = {
+            center: new kakao
+              .maps
+              .LatLng(y, x), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+          };
+        var map = new kakao
+          .maps
+          .Map(mapContainer, mapOption);
+        var markerPosition = new kakao
+          .maps
+          .LatLng(y, x);
 
+        // 마커를 생성합니다
+        var marker = new kakao
+          .maps
+          .Marker({position: markerPosition});
 
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
-<script>
-    const x = document.querySelector('#x').innerText
-    const y = document.querySelector('#y').innerText
-    console.log(x, y)
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨 
-        };
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    var markerPosition = new kakao.maps.LatLng(y, x);
-
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-</script>
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+  </script>
 {% endblock %}
