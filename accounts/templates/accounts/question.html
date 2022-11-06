@@ -1,180 +1,201 @@
-{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %} .
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+  .
 
-<div class="container">
+  <div class="container">
     <ul class="container">
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">커뮤니티 가이드라인</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">중고의 집은 따뜻한 교류가 있는 사회를 만들기 위해 노력하고 있어요.<br>
-                  거래 이웃을 향한 당신의 따뜻한 관심과 애정을 중고의 집의 가장 큰 동력이예요.<br>
-                중고의 집을 사용하는 이웃 모두가 함께 커뮤니티 가이드라인을 지키며 따뜻한 커뮤니티를 함께 만들어요.<br>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">커뮤니티 가이드라인</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">중고의 집은 따뜻한 교류가 있는 사회를 만들기 위해 노력하고 있어요.<br>
+              거래 이웃을 향한 당신의 따뜻한 관심과 애정을 중고의 집의 가장 큰 동력이예요.<br>
+              중고의 집을 사용하는 이웃 모두가 함께 커뮤니티 가이드라인을 지키며 따뜻한 커뮤니티를 함께 만들어요.<br>
               <span class="fw-bold">신뢰</span><br>
-            우리의 따뜻함은 신뢰로부터 나와요. 우리는 만남이 따뜻함이 될 수 있도록 노력해요. 중고의 집은 언제나 사용자에게 귀 기울이며 신뢰를 만들어요.<br>
-            <span class="fw-bold">존중</span><br>
-          어떤 상황에서도 우리는 다양성을 존중하고, 배려하기로 약속해요. 중고의 집은 누구나 존중받는 따뜻한 커뮤니티를 지향하고 있어요.</a></li>
-            </ul>
-        </li>
+              우리의 따뜻함은 신뢰로부터 나와요. 우리는 만남이 따뜻함이 될 수 있도록 노력해요. 중고의 집은 언제나 사용자에게 귀 기울이며 신뢰를 만들어요.<br>
+              <span class="fw-bold">존중</span><br>
+              어떤 상황에서도 우리는 다양성을 존중하고, 배려하기로 약속해요. 중고의 집은 누구나 존중받는 따뜻한 커뮤니티를 지향하고 있어요.</a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고거래 운영정책</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">중고의 집은 신뢰와 존중을 서비스의 중요한 가치라고 생각해요.<br>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고거래 운영정책</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">중고의 집은 신뢰와 존중을 서비스의 중요한 가치라고 생각해요.<br>
               <span class="fw-bold">만남이 따뜻함이 될 수 있도록 거래매너를 지켜요</span><br>
-            서로 존중하고 배려해요. 존댓말로 솔직하게 대화해요. 언제나 따뜻한 인사로 시작하고 마무리해요.<br>
-          모두의 시간은 소중해요. 약속은 반드시 지켜요. 정대로 중간에 연락이 끊기는 일이 없도록 해요.</a></li>
-            </ul>
-        </li>
+              서로 존중하고 배려해요. 존댓말로 솔직하게 대화해요. 언제나 따뜻한 인사로 시작하고 마무리해요.<br>
+              모두의 시간은 소중해요. 약속은 반드시 지켜요. 정대로 중간에 연락이 끊기는 일이 없도록 해요.</a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고의 집에서 지켜야 할 매너</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">중고의 집에서 따뜻한 경험을 함께 나눠요. 따뜻한 배려를 베풀어 주세요.<br>
-                여러분의 작은 친절이 중고의 집 이웃에게 큰 감동을 줄 수 있어요.<br>
-            <span class="fw-bold">구매자 매너</span><br>
-          질문하기 전에 판매글을 꼼꼼히 읽어 주세요.<br>
-          지나치게 가격을 깎지 말아 주세요.<br>
-          물건 금액에 맞게 금액을 미리 준비해 주세요.<br>
-          감사 인사로 잘 마무리해주세요.<br>
-          <span class="fw-bold">판매자 매너</span><br>
-        물품에 대한 설명을 자세하게 써 주세요.<br>
-        물품의 시세를 알아보고 가격을 정해주세요.<br>
-        중고의 집에서 구매한 상품을 재판매하면 재판매하는 이유와 함께 구매한 가격과 동일하거나 더 싼 가격에 판매해주세요.<br>
-      </a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고의 집에서 지켜야 할 매너</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">중고의 집에서 따뜻한 경험을 함께 나눠요. 따뜻한 배려를 베풀어 주세요.<br>
+              여러분의 작은 친절이 중고의 집 이웃에게 큰 감동을 줄 수 있어요.<br>
+              <span class="fw-bold">구매자 매너</span><br>
+              질문하기 전에 판매글을 꼼꼼히 읽어 주세요.<br>
+              지나치게 가격을 깎지 말아 주세요.<br>
+              물건 금액에 맞게 금액을 미리 준비해 주세요.<br>
+              감사 인사로 잘 마무리해주세요.<br>
+              <span class="fw-bold">판매자 매너</span><br>
+              물품에 대한 설명을 자세하게 써 주세요.<br>
+              물품의 시세를 알아보고 가격을 정해주세요.<br>
+              중고의 집에서 구매한 상품을 재판매하면 재판매하는 이유와 함께 구매한 가격과 동일하거나 더 싼 가격에 판매해주세요.<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">판매 금지 물품</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">가품∙이미테이션 (상표권, 저작권 침해 물품, 특정 브랜드의 스타일을 모방한 물품)<br>
-                  주류(무알콜 주류 포함), 담배, 전자담배, 모의총포 및 그 부속품 일체 (ex. 라이터, 비비탄 총알 등 청소년 유해물건)<br>
-                  반려동물, 생명이 있는 동물·곤충 (무료분양, 열대어 포함)<br>
-                  한약∙의약품 ∙ 의료기기∙마약류 (청소년 유해약물∙유해화학물질)<br>
-                  반영구 화장 등 면허나 자격 없는 자의 불법 유사 의료 행위 홍보/모집글<br>
-                  수제 음식물∙건강기능식품 : 직접 만들거나 가공한 음식, 건강기능식품(지자체 및 영업 신고를 한 사람만 판매할 수 있음)<br>
-                  유통기한이 지난 제품, 포장이 훼손되거나 개봉된 식품<br>
-                  도수 있는 안경∙선글라스 (온라인 판매 불법)<br>
-                  콘택트 렌즈, 써클 렌즈 (온라인 판매 불법)<br>
-      </a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">판매 금지 물품</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">가품∙이미테이션 (상표권, 저작권 침해 물품, 특정 브랜드의 스타일을 모방한 물품)<br>
+              주류(무알콜 주류 포함), 담배, 전자담배, 모의총포 및 그 부속품 일체 (ex. 라이터, 비비탄 총알 등 청소년 유해물건)<br>
+              반려동물, 생명이 있는 동물·곤충 (무료분양, 열대어 포함)<br>
+              한약∙의약품 ∙ 의료기기∙마약류 (청소년 유해약물∙유해화학물질)<br>
+              반영구 화장 등 면허나 자격 없는 자의 불법 유사 의료 행위 홍보/모집글<br>
+              수제 음식물∙건강기능식품 : 직접 만들거나 가공한 음식, 건강기능식품(지자체 및 영업 신고를 한 사람만 판매할 수 있음)<br>
+              유통기한이 지난 제품, 포장이 훼손되거나 개봉된 식품<br>
+              도수 있는 안경∙선글라스 (온라인 판매 불법)<br>
+              콘택트 렌즈, 써클 렌즈 (온라인 판매 불법)<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고의 집에서 지켜야 할 매너</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">중고의 집의 모든 거래는 기본적으로 거래 당사자들끼리 자유롭게 진행할 수 있어요. 가급적 중고의 집은 거래에 개입하지 않아요.<br>
-                그래서 거래 중에 이견이 있어도 거래 당사자들끼리 직접 대화하여 해결하는 것을 권장해요.<br>
-                하지만 대화로 해결하기 어렵다면 중고의 집은 아래와 같은 정책을 따르고 있어요.<br>
-                거래 중에 분쟁이 발생하더라도 중고의 집의 기본매너를 지키는 건 잊지 말아 주세요. 휴대폰 너머 나와 똑같은 사람이 있다는 것을 기억해주세요.<br>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">중고의 집에서 지켜야 할 매너</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">중고의 집의 모든 거래는 기본적으로 거래 당사자들끼리 자유롭게 진행할 수 있어요. 가급적 중고의 집은 거래에 개입하지 않아요.<br>
+              그래서 거래 중에 이견이 있어도 거래 당사자들끼리 직접 대화하여 해결하는 것을 권장해요.<br>
+              하지만 대화로 해결하기 어렵다면 중고의 집은 아래와 같은 정책을 따르고 있어요.<br>
+              거래 중에 분쟁이 발생하더라도 중고의 집의 기본매너를 지키는 건 잊지 말아 주세요. 휴대폰 너머 나와 똑같은 사람이 있다는 것을 기억해주세요.<br>
 
-          <span class="fw-bold">판매자(구매자)에게는 이런 권리가 있어요.</span><br>
-          구매자(판매자)의 무리한 요구는 거절할 권리가 있어요. 매너없는 이야기에 답하지 않을 권리도 있어요. <br>
-          무리한 요구나 비매너 행위를 지속한다면 '문의하기'를 통해서 알려주세요. <br>
-        <span class="fw-bold">판매자(구매자)에게는 이런 의무도 있어요. </span><br>
-        우리는 모두 중고의 집의 주민이에요. 중고의 집의 거래매너를 지켜주세요.<br>
-        거래 약속 후 취소하는 것을 지양해주세요. 내 시간이 소중한 만큼, 상대방의 시간도 소중히 여겨주세요. <br>
-        거래 관련 문제가 생겼다고 해서 거래와 관련 없는 욕설/비방을 삼가세요. 거래와 관련 없는 욕설/비방 등의 비매너 행위를 할 경우, 제재당할 수 있어요. <br>
-        <span class="fw-bold">미성년자와의 거래시 거래가 취소될 수 있어요. </span><br>
-        민법상 미성년자가 중고거래를 하기 위해서는 법정 대리인의 동의를 받아야 해요. 보호자 동의 없이 거래한 경우 거래가 취소될 수 있어요.<br>
+              <span class="fw-bold">판매자(구매자)에게는 이런 권리가 있어요.</span><br>
+              구매자(판매자)의 무리한 요구는 거절할 권리가 있어요. 매너없는 이야기에 답하지 않을 권리도 있어요.
+              <br>
+              무리한 요구나 비매너 행위를 지속한다면 '문의하기'를 통해서 알려주세요.
+              <br>
+              <span class="fw-bold">판매자(구매자)에게는 이런 의무도 있어요.
+              </span><br>
+              우리는 모두 중고의 집의 주민이에요. 중고의 집의 거래매너를 지켜주세요.<br>
+              거래 약속 후 취소하는 것을 지양해주세요. 내 시간이 소중한 만큼, 상대방의 시간도 소중히 여겨주세요.
+              <br>
+              거래 관련 문제가 생겼다고 해서 거래와 관련 없는 욕설/비방을 삼가세요. 거래와 관련 없는 욕설/비방 등의 비매너 행위를 할 경우, 제재당할 수 있어요.
+              <br>
+              <span class="fw-bold">미성년자와의 거래시 거래가 취소될 수 있어요.
+              </span><br>
+              민법상 미성년자가 중고거래를 하기 위해서는 법정 대리인의 동의를 받아야 해요. 보호자 동의 없이 거래한 경우 거래가 취소될 수 있어요.<br>
 
-    </a></li>
-            </ul>
-        </li>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">코로나19 자가진단 키트는 판매할 수 없어요</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">코로나19 자가진단 키트는 의료제품, 의료기기로 중고의 집에서 판매할 수 없어요.<br>
-                (사용 후 양성,음성 결과가 나온 자가검사키트, 신속 항원검사 키트 포함)<br>
-                또한, 식품의약품안전처의 공중보건 위기대응 의료제품 온라인 유통개선조치 시행됨에 따라, 온라인에서 해당 제품을 판매할 경우,<br>
-                "공중보건 위기대응 의료제품의 개발 촉진 및 긴급 공급을 위한 특별법" 제33조 제1항 제2호에 따라 2년 이하 징역 또는 5천만원 이하의 벌금 등 불이익이 있을 수 있어요.<br>
-    </a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">코로나19 자가진단 키트는 판매할 수 없어요</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">코로나19 자가진단 키트는 의료제품, 의료기기로 중고의 집에서 판매할 수 없어요.<br>
+              (사용 후 양성,음성 결과가 나온 자가검사키트, 신속 항원검사 키트 포함)<br>
+              또한, 식품의약품안전처의 공중보건 위기대응 의료제품 온라인 유통개선조치 시행됨에 따라, 온라인에서 해당 제품을 판매할 경우,<br>
+              "공중보건 위기대응 의료제품의 개발 촉진 및 긴급 공급을 위한 특별법" 제33조 제1항 제2호에 따라 2년 이하 징역 또는 5천만원 이하의 벌금 등 불이익이 있을 수 있어요.<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">판매 금지 물품에 해당하는 의약품·의료기기·건강기능식품에는 어떤 것이 있나요?</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">의약품 안전나라 > 의약품 제품 정보 검색에 나오는 5만여가지 의약품, 해외에서 직구한 의약품,<br>
-                식품의약품안전처 > 의료기기 전자민원창구에 나오는 17만여가지 의료기기 등은 판매 금지 물품에 해당합니다.<br>
-                예를 들어, 아래와 같은 의약품·의료기기는 국내 의료법상 개인 간 거래할 수 없어요.<br>
-                보청기<br>
-                파스 (신신파스아렉스, 동전 파스, 샤론파스 등)<br>
-                점안액, 인공눈물 (아이봉, 히알산점안액, 카이닉스점안액 등)<br>
-                구충제,구충약 (펜벤다졸, 파나쿠어 등)<br>
-                연고, 크림 등 (호랑이 연고 등)<br>
-                약국에서 판매하는 의료 약품<br>
-                건강기능식품으로 분류된 모든 제품<br>
-    </a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">판매 금지 물품에 해당하는 의약품·의료기기·건강기능식품에는 어떤 것이 있나요?</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">의약품 안전나라 > 의약품 제품 정보 검색에 나오는 5만여가지 의약품, 해외에서 직구한 의약품,<br>
+              식품의약품안전처 > 의료기기 전자민원창구에 나오는 17만여가지 의료기기 등은 판매 금지 물품에 해당합니다.<br>
+              예를 들어, 아래와 같은 의약품·의료기기는 국내 의료법상 개인 간 거래할 수 없어요.<br>
+              보청기<br>
+              파스 (신신파스아렉스, 동전 파스, 샤론파스 등)<br>
+              점안액, 인공눈물 (아이봉, 히알산점안액, 카이닉스점안액 등)<br>
+              구충제,구충약 (펜벤다졸, 파나쿠어 등)<br>
+              연고, 크림 등 (호랑이 연고 등)<br>
+              약국에서 판매하는 의료 약품<br>
+              건강기능식품으로 분류된 모든 제품<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">핸드메이드 제품을 중고거래할 수 있나요?</a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" href="#">
-                        <span class="fw-bold">핸드메이드 제품은 중고거래할 수 없어요.</span><br> 중고의 집 서비스는 핸드메이드 제품을 홍보하는 것은 제한하고 있습니다.<br>
-                    </a>
-                </li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">핸드메이드 제품을 중고거래할 수 있나요?</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">
+              <span class="fw-bold">핸드메이드 제품은 중고거래할 수 없어요.</span><br>
+              중고의 집 서비스는 핸드메이드 제품을 홍보하는 것은 제한하고 있습니다.<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">반려동물, 생명이 있는 동물·곤충을 무료로 분양할 수 있나요?</a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" href="#">무료 분양이더라도 반려동물, 생명이 있는 동물·곤충을 거래하는 행위는 금지하고 있어요. <br>
-                  </a>
-                </li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">반려동물, 생명이 있는 동물·곤충을 무료로 분양할 수 있나요?</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">무료 분양이더라도 반려동물, 생명이 있는 동물·곤충을 거래하는 행위는 금지하고 있어요.
+              <br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">과일청, 유자차, 동치미처럼 직접 만든 음식을 중고거래할 수 있나요?</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><span class="fw-bold">개인이 가공한 식품은 중고거래할 수 없어요.</span><br>
-                정성스레 만든 음식을 소소하게 나누고 싶은 마음에 감동 받았어요. 따뜻한 마음씨에 감사드립니다.<br>
-                하지만 식품 위생법에 따라서 제조 인허가를 받지 않은 개인이 직접 가공한 식품은 중고거래할 수 없는 점 양해해주세요.<br>
-        <span class="fw-bold">가공하지 않은 상태의 농수산물은 거래할 수 있어요.</span><br>
-        유통비가 빠진 저렴한 가격에 판매하실 거라고 믿어 의심치 않아요.  <br>
-        중고의 집에서 저렴히 거래하는 문화를 만들어 가요. <br>
-  </a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">과일청, 유자차, 동치미처럼 직접 만든 음식을 중고거래할 수 있나요?</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">
+              <span class="fw-bold">개인이 가공한 식품은 중고거래할 수 없어요.</span><br>
+              정성스레 만든 음식을 소소하게 나누고 싶은 마음에 감동 받았어요. 따뜻한 마음씨에 감사드립니다.<br>
+              하지만 식품 위생법에 따라서 제조 인허가를 받지 않은 개인이 직접 가공한 식품은 중고거래할 수 없는 점 양해해주세요.<br>
+              <span class="fw-bold">가공하지 않은 상태의 농수산물은 거래할 수 있어요.</span><br>
+              유통비가 빠진 저렴한 가격에 판매하실 거라고 믿어 의심치 않아요.
+              <br>
+              중고의 집에서 저렴히 거래하는 문화를 만들어 가요.
+              <br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-        <li class="nav-item dropdown" style="display: contents;">
-            <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">거래 순서는 꼭 채팅의 선착순으로 해야 하나요?</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><span class="fw-bold">선착순으로 하지 않아도 괜찮아요.</span><br>
-                나와 거래하지 않더라도 판매자의 선택을 존중해주세요. 이는 중고거래의 특성으로 이해해주시길 바랍니다.<br>
-      <span class="fw-bold">다만 거래 약속을 했다면 가급적 약속한 분과 거래해주시길 바랍니다.</span><br>
-      거래 약속한 뒤 특별한 이유 없이 약속을 깨고 다른 이웃에게 판매하는 행위는 비매너에 해당합니다.<br>
-</a></li>
-            </ul>
-        </li>
+      <li class="nav-item dropdown" style="display: contents;">
+        <a class="nav-link dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height:60px;">거래 순서는 꼭 채팅의 선착순으로 해야 하나요?</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">
+              <span class="fw-bold">선착순으로 하지 않아도 괜찮아요.</span><br>
+              나와 거래하지 않더라도 판매자의 선택을 존중해주세요. 이는 중고거래의 특성으로 이해해주시길 바랍니다.<br>
+              <span class="fw-bold">다만 거래 약속을 했다면 가급적 약속한 분과 거래해주시길 바랍니다.</span><br>
+              거래 약속한 뒤 특별한 이유 없이 약속을 깨고 다른 이웃에게 판매하는 행위는 비매너에 해당합니다.<br>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-
-        <div class="card text-center mb-4">
-            <div class="card-body">
-                <a href="" class="fs-4 fw-bold text-decoration-none text-black">문의하기</a>
-            </div>
+      <div class="card text-center mb-4">
+        <div class="card-body">
+          <a href="{% url 'service_center:question' %}" class="fs-4 fw-bold text-decoration-none text-black">문의하기</a>
         </div>
-
-
-
-
-
+      </div>
 
     </ul>
 
-</div>
-
-
-
-
-
-
+  </div>
 
 {% endblock content %}
