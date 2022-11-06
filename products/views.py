@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Products
+from .models import Products, Popularsearch
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -8,8 +8,10 @@ from django.views.decorators.http import require_POST
 
 def index(request):
     products = Products.objects.order_by('-pk')
+    search_all = Popularsearch.objects.order_by('-searchCount')[:3]
     context = {
         'products':products,
+        'search_all': search_all,
     }
     return render(request, 'products/index.html', context)
 
@@ -76,9 +78,8 @@ def update(request, products_pk):
 
 @login_required
 def delete(request, products_pk):
-    if request.user == products.user:
-        products = get_object_or_404(Products, pk=products_pk)
-        products.delete()
+    products = get_object_or_404(Products, pk=products_pk)
+    products.delete()
     return redirect('products:index')
 
 @login_required
@@ -107,3 +108,27 @@ def sold_out(request, products_pk):
             product.sold = True
         product.save()
     return redirect('products:detail', products_pk)
+
+# 검색 기능 + 검색어 저장
+def search(request):
+    search = request.GET.get("search")
+    search_found = Popularsearch.objects.filter(terms=search)
+    
+
+    if search:
+        # index에 검색 결과 뿌려주는 쿼리셋 저장
+        search_result = Products.objects.filter(title__contains=search)
+    
+    # 사용자로부터 입력받은 검색어가 이미 있다면 searchCount += 1
+    if search_found:
+        search_exist = Popularsearch.objects.get(terms=search)
+        search_exist.searchCount += 1
+        search_exist.save()
+    else:
+        # 사용자로부터 입력받은 검색어를 DB에 저장
+        Popularsearch.objects.create(terms=search)
+
+    context = {
+        'search_result': search_result,
+    }
+    return render(request, 'products/index.html', context)

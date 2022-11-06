@@ -27,3 +27,8 @@ class Location(models.Model):
     trade_locationx = models.CharField(max_length=100)
     trade_locationy = models.CharField(max_length=100)
     product = models.OneToOneField(Products, on_delete=models.CASCADE)
+
+class Popularsearch(models.Model):
+    terms = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    searchCount = models.IntegerField(default=1)

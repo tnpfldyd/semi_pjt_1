@@ -2,8 +2,6 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-<script src="{% static 'css/search_view.css' %}"></script>
-
 {% block search %}
 <form action="{% url 'articles:search' %}" class="d-flex" role="search" style="height:40px;">
   <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
@@ -35,24 +33,17 @@
     </button>
 </div>
 
-<!-- 인기검색어 -->
-<div class="block">
-  지역 커뮤니티 인기 검색어 순위:
-  <ul id="ticker">
-      {% for search in search_all %}
-      <li><a href="#"><span>{{ forloop.counter }}</span> {{ search.terms }}</a></li>
-      {% endfor %}
-  </ul>
-  <div class="navi">
-    <button class="prev">이전</button>
-    <button class="next">다음</button>
-    <button class="pause none">정지</button>
-    <button id="pause" class="">Pause</button>
-  </div>
-</div>
-
 <!-- 커뮤니티 이름 -->
 <h3 class="mt-5 fw-bold text-center text-warning">지역 커뮤니티</h3>
+
+<!-- 인기검색어 -->
+<div class="block">
+  <ul id="ticker">
+      {% for search in search_all %}
+      <li class="text-center"><span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span> {{ search.terms }}</li>
+      {% endfor %}
+  </ul>
+</div>
 
 <!-- 커뮤니티 글쓰기 -->
 <div class='text-end mt-3'>
@@ -138,5 +129,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{% static 'js/search_view.js' %}"></script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="{% static './css/search_view.css' %}">
 
 {% endblock content %}
