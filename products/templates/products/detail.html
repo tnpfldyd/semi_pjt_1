@@ -1,32 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
-    {% comment %} 게시글 정보 {% endcomment %}
-    <h1>{{ products.title }}</h1>
-    <div class="d-flex justify-content-between">
-        <div>
-          <span>
-          {% if products.user.profile.image %}
-              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ products.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
-          {% else %}
-              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 70px; width:70px;"></a>
-          {% endif %}
-          </span>
-          <span>
-          <span class="fw-bold ms-2">
-              <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark">{{ products.user.username }} 매너온도 {{ products.user.celsius}}℃{% if products.user.celsius < 36.5 %}<i class="bi bi-emoji-frown text-danger"></i>{% elif products.user.celsius == 36.5 %}<i class="bi bi-emoji-neutral"></i>{% else %}<i class="bi bi-emoji-smile text-primary"></i>{% endif %}</a>
-          </span>
-        </div>
 
-        <div>
-            <p>조회수 | {{ products.hit }}</p>
-            <p>{{ products.created_at }}</p>
-        </div>
-    </div>
-    <h5>가격 | {{ products.price }}원</h5>
-
+    <!-- 상품 이미지 -->
     <div class="d-flex justify-content-start my-5">
-        <div class="img_large d-flex align-items-center justify-content-center" style="text-align:center;display:table;width:400px;height:400x;">
-            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;">
+        <div class="img_large d-flex align-items-center justify-content-center" style="text-align:center;display:table; width:400px; height:400x;">
+            <img src="{{ products.original_image.url }}" alt="{{ products.original_image }}" style="max-width:400px; max-height:400px;" class="rounded">
             {% if products.sold %}
             <div style="position: absolute;width:100%; font-size:50px;text-align:center;">
                 <img class='bg-dark bg-opacity-25 rounded-circle' src="../../../static/images/soldout.png" alt="" style="max-width:400px; max-height:400px;">
@@ -34,16 +12,55 @@
             {% endif %}
         </div>
 
-        <p class="ms-5">{{ products.content }}</p>
+        <!-- 상품 정보 -->
+        <div class="d-flex flex-column ms-3" style="width:50rem">
+            <h2>{{ products.title }}</h2>
+            <div class="d-flex">
+                <p class="mb-0">조회수 {{ products.hit }}</p>
+                <p class="ms-3 mb-0">{{ products.created_at }}</p>
+            </div>
+            <h3 class="fw-bold mt-2">{{ products.price }}원</h5>
+            <p class="fs-4 mt-2">{{ products.content }}</p>
+        </div>
     </div>
-    {% comment %} 버튼 {% endcomment %} {% if request.user == products.user %}
+    
+    <!-- 프로필 -->
+    <div class="ms-3">
+        <span>
+        {% if products.user.profile.image %}
+            <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="{{ products.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
+        {% else %}
+            <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark"><img src="../../../static/images/hmm.png" class="rounded-circle" alt="" style="height: 60px; width:60px;"></a>
+        {% endif %}
+        </span>
+        <span class="fw-bold ms-2">
+                <a href="{% url 'accounts:profile' products.user.username %}" style="text-decoration:none" class="text-dark">{{ products.user.username }}</a>
+                <span>
+                    매너온도 {{ products.user.celsius}}℃
+                    {% if products.user.celsius < 36.5 %}
+                    <i class="bi bi-emoji-frown text-danger"></i>
+                    {% elif products.user.celsius == 36.5 %}
+                    <i class="bi bi-emoji-neutral"></i>
+                    {% else %}
+                    <i class="bi bi-emoji-smile text-primary"></i>
+                    {% endif %}
+                </span>
+        </span>
+    </div>
+    
+    {% comment %} 버튼 {% endcomment %} 
+    {% if request.user == products.user %}
     <div class="d-flex justify-content-center">
         <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success">수정</a>
         <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a>
         <a href="{% url 'products:sold_out' products.pk %}">{% if products.sold %}<button class="btn btn-outline-danger ms-3">판매중</button>{% else %}<button class="btn btn-outline-primary ms-3">거래 완료</button>{% endif %}</a>
-    </div> {% endif %} {% if request.user != products.user %}
-    <a href="" class="btn btn-outline-warning"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
-    <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
+    </div> 
+    {% endif %} 
+    {% if request.user != products.user %}
+    <div class="d-flex justify-content-end my-3">
+        <a href="" class="btn btn-outline-warning mx-2"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
+        <a href="" class="btn btn-outline-success mx-2">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
+    </div>
     <h3 class="my-4">거래장소</h3>
     <div id="map" style="width:100%;height:350px;"></div>
     <div class="text-center mt-3">
