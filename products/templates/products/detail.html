@@ -51,27 +51,32 @@
     {% comment %} 버튼 {% endcomment %} 
     {% if request.user == products.user %}
     <div class="d-flex justify-content-center">
-        <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success">수정</a>
+        <a href="{% url 'products:index' %}" class="btn btn-primary">목록으로</a>
+        <a href="{% url 'products:update' products.pk %}" class="btn btn-outline-success ms-3">수정</a>
         <a href="{% url 'products:delete' products.pk %}" class="btn btn-outline-danger ms-3">삭제</a>
-        <a href="{% url 'products:sold_out' products.pk %}">{% if products.sold %}<button class="btn btn-outline-danger ms-3">판매중</button>{% else %}<button class="btn btn-outline-primary ms-3">거래 완료</button>{% endif %}</a>
-    </div> 
-    {% endif %} 
-    {% if request.user != products.user %}
-    <div class="d-flex justify-content-end my-3">
-        <a href="" class="btn btn-outline-warning mx-2"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
-        <a href="" class="btn btn-outline-success mx-2">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
-    </div>
-    <h3 class="my-4">거래장소</h3>
-    <div id="map" style="width:100%;height:350px;"></div>
-    <div class="text-center mt-3">
-    <a href="{% url 'products:zzi' products.pk %}" style="text-decoration:none">
-        {% if request.user in products.zzim.all %}
-        <i class="bi bi-heart-fill text-danger"></i>
-        {% else %}
-        <i class="bi bi-heart text-danger"></i>
-        {% endif %}
-        </a> <span>{{ products.zzim.count }}명이 이 상품을 찜 했어요.</span>
-    </div>
+
+        <a href="{% url 'products:sold_out' products.pk %}">
+            {% if products.sold %}<button class="btn btn-outline-danger ms-3">판매중</button>
+            {% else %}
+            <button class="btn btn-outline-primary ms-3">거래 완료</button>
+            {% endif %}</a>
+        </div>
+            {% endif %}
+            {% if request.user != products.user %}
+            <a href="" class="btn btn-outline-warning"> 게시글 신고</a> {% endif %} {% if request.user != products.user %}
+            <a href="" class="btn btn-outline-success">채팅하기</a> {% endif %} {% comment %} 지도 {% endcomment %}
+            <h3 class="my-4">거래장소</h3>
+            <div id="map" style="width:100%;height:350px;"></div>
+            <div class="text-center mt-3">
+            <a href="{% url 'products:zzi' products.pk %}" style="text-decoration:none">
+                {% if request.user in products.zzim.all %}
+                <i class="bi bi-heart-fill text-danger"></i>
+                {% else %}
+                <i class="bi bi-heart text-danger"></i>
+                {% endif %}
+                </a> <span>{{ products.zzim.count }}명이 이 상품을 찜 했어요.</span>
+            </div>
+
     <div id="x" style="display: none;">{{location.trade_locationx}}</div>
     <div id="y" style="display: none;">{{location.trade_locationy}}</div>
     <h3 class="my-3 mt-5">판매자가 파는 다른 상품</h3>
