@@ -127,14 +127,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 if DEBUG: 
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
+    STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 else:   
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
@@ -148,7 +149,7 @@ else:
         AWS_STORAGE_BUCKET_NAME,
         AWS_REGION,
     )
-
+    STATIC_ROOT = BASE_DIR / "static"
 AUTH_USER_MODEL = "accounts.User"
 from django.contrib import messages
 MESSAGE_TAGS = {
