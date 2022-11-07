@@ -19,7 +19,13 @@
         <a href="{% url 'accounts:edit' %}" class="btn btn-outline-dark">수정</a>
         <a href="{% url 'accounts:editpw' %}" class="btn btn-outline-dark">비밀번호 변경</a>
         <a href="{% url 'accounts:delete' %}" class="btn btn-outline-dark">탈퇴</a>
-        <a href="{% url 'accounts:block_user' %}" class="btn btn-outline-dark">차단 목록</a>{% endif %}
+        <a href="{% url 'accounts:block_user' %}" class="btn btn-outline-dark">차단 목록</a>
+        {% if request.user_is.superuser %}
+        <a href="{% url 'service_center:admin_page' %}" class="btn btn-outline-dark">문의 내역</a>
+        {% else %}
+        <a href="{% url 'service_center:index' %}" class="btn btn-outline-dark">내 문의</a>
+        {% endif %}
+        {% endif %}
     </div>
     <div class="card-footer text-muted">
         팔로잉 수 | {{user.followings.count}} / 팔로워 수 | {{user.followers.count}}
