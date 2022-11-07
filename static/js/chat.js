@@ -103,13 +103,13 @@ const messageForm = document.querySelector('#message-form')
       };
       for (let i = 0; i < roomdata.length; i++) {
         const room = document.createElement('a');
-        const hr = document.createElement('hr');
+        const br = document.createElement('br');
         room.className = 'text-decoration-none'
         room.href = `/chats/${roomdata[i][3]}`
         room.innerText = `${roomdata[i][1]}\n${roomdata[i][2]}\n${roomdata[i][0]}`
         console.log(roomdata)
         roomdiv.appendChild(room)
-        roomdiv.appendChild(hr)
+        roomdiv.appendChild(br)
       }
     })
   })
@@ -222,13 +222,13 @@ const messageForm = document.querySelector('#message-form')
       };
       for (let i = 0; i < roomdata.length; i++) {
         const room = document.createElement('a');
-        const hr = document.createElement('hr');
+        const br = document.createElement('br');
         room.className = 'text-decoration-none'
         room.href = `/chats/${roomdata[i][3]}`
         room.innerText = `${roomdata[i][1]}\n${roomdata[i][2]}\n${roomdata[i][0]}`
 
         roomdiv.appendChild(room)
-        roomdiv.appendChild(hr)
+        roomdiv.appendChild(br)
       }
     })
   }
