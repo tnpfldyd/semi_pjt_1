@@ -20,7 +20,7 @@
         <a href="{% url 'accounts:editpw' %}" class="btn btn-outline-dark">비밀번호 변경</a>
         <a href="{% url 'accounts:delete' %}" class="btn btn-outline-dark">탈퇴</a>
         <a href="{% url 'accounts:block_user' %}" class="btn btn-outline-dark">차단 목록</a>
-        {% if request.user_is.superuser %}
+        {% if request.user._is.superuser %}
         <a href="{% url 'service_center:admin_page' %}" class="btn btn-outline-dark">문의 내역</a>
         {% else %}
         <a href="{% url 'service_center:index' %}" class="btn btn-outline-dark">내 문의</a>
