@@ -7,10 +7,11 @@
 {% endfor %}
 <h1>로그인</h1>
 <form action="" method="POST">
-    <div class="d-flex justify-content-start">
-        {% csrf_token %} {% bootstrap_form form %} {% bootstrap_button button_type='submit' content='로그인' %}
 
-        <a href="{% url 'accounts:signup' %}" class="btn btn-primary">회원가입</a>
+    {% csrf_token %} {% bootstrap_form form %}
+    <div class="d-flex justify-content-start">{% bootstrap_button button_type='submit' content='로그인' %}
+
+        <a href="{% url 'accounts:signup' %}" class="btn btn-primary ms-2">회원가입</a>
     </div>
 </form>
 
