@@ -4,7 +4,7 @@ from .models import Article, Comment, Popularsearch
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+from django.contrib.auth import get_user_model
 # Create your views here.
 @login_required
 def index(request):
@@ -21,6 +21,10 @@ def index(request):
 def create(request):
     if request.method == "POST":
         article_form = ArticleForm(request.POST, request.FILES)
+        user = get_user_model().objects.get(pk=request.user.pk)
+        if user.celsius < 30:
+            messages.error(request, '온도가 너무 낮아서 글을 작성할 수 없어요.😡')
+            return render(request, 'articles/create.html', {'article_form': article_form})
         if article_form.is_valid():
             article = article_form.save(commit=False)
             article.user = request.user

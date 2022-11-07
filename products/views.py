@@ -4,6 +4,8 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth import get_user_model
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -22,7 +24,14 @@ def create(request):
     if request.method == "POST":
         productform = ProductsForm(request.POST, request.FILES)
         locationform = LocationForm(request.POST)
-        print(locationform)
+        user = get_user_model().objects.get(pk=request.user.pk)
+        if user.celsius < 30:
+            context = {
+                'productform':productform,
+                'locationform':locationform,
+            }
+            messages.error(request, '온도가 너무 낮아서 글을 작성할 수 없어요.😡')
+            return render(request, 'products/form.html', context)
         if productform.is_valid() and locationform.is_valid(): # 유효성 검사
             # 로그인한 유저만 글 작성가능해서
             products = productform.save(commit=False)

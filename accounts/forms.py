@@ -12,14 +12,15 @@ class CustomUserCreationForm(UserCreationForm):
             "username",
             "email",
         )
-        # labels = {
-        #     "username": "아이디",
-        # }
-        def clean_email(self):
-            email = self.cleaned_data["email"]
-            if len(email) < 3:
-                raise ValidationError('너무 짧아요 ㅡㅡ')
-            return email
+        
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if get_user_model().objects.filter(username=username).exists():
+            user = get_user_model().objects.get(username=username)
+            if user.secession:
+                raise ValidationError('탈퇴일로 부터 1년 동안 재가입은 불가능 합니다. 복구 문의시 고객센터로 연락주시기 바랍니다.😢')
+            return username
+        return username
 
 
 class CustomUserChangeForm(UserChangeForm):

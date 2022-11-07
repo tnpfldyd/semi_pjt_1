@@ -3,6 +3,7 @@ from .forms import *
 from django.contrib.auth import get_user_model, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm , PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -21,6 +22,11 @@ def signin(request):
         form = AuthenticationForm(request, data=request.POST) # 사용자가 입력한 내용
         if form.is_valid(): # 유효성 검사
             login(request, form.get_user())
+            user = get_object_or_404(get_user_model(), pk=request.user.pk)
+            if user.secession:
+                logout(request)
+                messages.error(request, '탈퇴 시 로그인은 불가능 합니다.😱')
+                return redirect('accounts:login')
             return redirect('articles:index') # 통과하면 로그인 후에 articles/index로 리다이렉트
     context = {
         'form': form # 처음에 들어오면 method == 'GET' if문이 실행이 안되므로 18번째 줄 form을 반환,
@@ -80,7 +86,7 @@ def editpw(request):
         if form.is_valid(): # 유효성 검사
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('accounts:index') # 통과하면 로그인 후에 리다이렉트
+            return redirect('articles:index') # 통과하면 로그인 후에 리다이렉트
     context = {
         'form': form # 처음에 들어오면 method == 'GET' if문이 실행이 안되므로 18번째 줄 form을 반환,
                     # 만약 POST로 사용자가 입력한 내용이 유효성 검사를 통과 못하는 경우 20번째 줄 form을 반환
@@ -93,9 +99,11 @@ def delete(request):
     if request.method == 'POST':
         form = CheckPasswordForm(request.user, request.POST)
         if form.is_valid():
-            request.user.delete()
+            user = get_object_or_404(get_user_model(), pk=request.user.pk)
+            user.secession = True
+            user.save()
             logout(request)
-            return redirect('accounts:index')
+            return redirect('articles:index')
     context = {
         'form': form,
     }

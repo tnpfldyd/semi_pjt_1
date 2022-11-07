@@ -1,4 +1,12 @@
 {% extends 'base.html' %} {% load django_bootstrap5 %} {% load static %} {% block content %}
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+{% endfor %}
 <div class="container">
     {% if request.resolver_match.url_name == 'create' %}
     <h1>중고 상품 등록</h1>
@@ -18,4 +26,11 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
     <script src="{% static 'js/product.js' %}"></script>
 </div>
+<script>
+    window.setTimeout(function() {
+    $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 1500);
+</script>
 {% endblock %}
