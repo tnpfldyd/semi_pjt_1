@@ -56,19 +56,22 @@
         <div class="row d-flex justify-content-between">
           <div class="card col-6 my-3" style="max-width: 540px;">
             <div class="row g-0">
-              <div class="col-md-4">
-                {% if search.image %}
-                  <a href="{% url 'products:detail' search.pk %}"><img src="{{ search.image.url }}" alt="{{ search.image }}" class="card-img-top"></a>
-                {% else %}
-                  <a href="{% url 'products:detail' search.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
-                {% endif %}
+              <div class="col-md-4" style="position:relative;">
+                  <a href="{% url 'products:detail' search.pk %}">
+                    <img src="{{ search.formatted_image.url }}" alt="" class="card-img-top">
+                    {% if search.sold %}
+                      <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
+                        <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
+                      </div>
+                    {% endif %}
+                  </a>
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title">
                     <h5>
                       <span class="fw-bold">
-                        <a href="{% url 'products:detail' search.pk %}" style="text-decoration:none" class="text-dark">[No.{{ search.pk }}]
+                        <a href="{% url 'products:detail' search.pk %}" style="text-decoration:none" class="text-dark">[No.{{ forloop.revcounter }}]
                         </span>{{ search.title }}</a>
                     </h5>
                   </h5>
@@ -101,26 +104,21 @@
           <div class="card col-6 my-3" style="max-width: 540px;">
             <div class="row g-0">
               <div class="col-md-4" style="position:relative;">
-                {% if product.original_image %}
-                  <a href="{% url 'products:detail' product.pk %}">
-                    <img src="{{ product.formatted_image.url }}" alt="" class="card-img-top">
-                    {% if product.sold %}
-                      <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
-                        <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
-                      </div>
-                    {% endif %}
-                  </a>
-
-                {% else %}
-                  <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
-                {% endif %}
+                <a href="{% url 'products:detail' product.pk %}">
+                  <img src="{{ product.formatted_image.url }}" alt="" class="card-img-top">
+                  {% if product.sold %}
+                    <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
+                      <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
+                    </div>
+                  {% endif %}
+                </a>
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title">
                     <h5>
                       <span class="fw-bold">
-                        <a href="{% url 'products:detail' product.pk %}" style="text-decoration:none" class="text-dark">[No.{{ product.pk }}]
+                        <a href="{% url 'products:detail' product.pk %}" style="text-decoration:none" class="text-dark">[No.{{ forloop.revcounter }}]
                         </span>{{ product.title }}</a>
                     </h5>
                   </h5>
