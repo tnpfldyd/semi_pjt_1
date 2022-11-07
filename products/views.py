@@ -122,7 +122,7 @@ def sold_out(request, products_pk):
 def search(request):
     search = request.GET.get("search")
     search_found = Popularsearch.objects.filter(terms=search)
-    
+    search_all = Popularsearch.objects.order_by('-searchCount')[:3]
 
     if search:
         # index에 검색 결과 뿌려주는 쿼리셋 저장
@@ -139,6 +139,7 @@ def search(request):
 
     context = {
         'search_result': search_result,
+        'search_all': search_all,
         'search': search,
     }
     return render(request, 'products/index.html', context)
