@@ -1,18 +1,22 @@
-{% extends 'base.html' %} {% load static %} {% load django_bootstrap5 %} {% block search %}
-<form action="{% url 'products:search' %}" class="d-flex" role="search" style="height:40px;">
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block search %}
+  <form action="{% url 'products:search' %}" class="d-flex" role="search" style="height:40px;">
     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit" style="height:40px; width:80px;">검색</button>
-</form>
-{% endblock %} {% block content %}
-<!-- 배너 캐러셀 -->
-<div id="carouselExampleControls" class="carousel slide mt-3" data-bs-ride="carousel">
+  </form>
+{% endblock %}
+{% block content %}
+  <!-- 배너 캐러셀 -->
+  <div id="carouselExampleControls" class="carousel slide mt-3" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="../../../static/images/중고의집배너1.png" class="d-block w-100" alt="dummy-image1">
-        </div>
-        <div class="carousel-item">
-            <img src="../../../static/images/중고의집배너2.png" class="d-block w-100" alt="dummy-image2">
-        </div>
+      <div class="carousel-item active">
+        <img src="../../../static/images/중고의집배너1.png" class="d-block w-100" alt="dummy-image1">
+      </div>
+      <div class="carousel-item">
+        <img src="../../../static/images/중고의집배너2.png" class="d-block w-100" alt="dummy-image2">
+      </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -22,51 +26,54 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-</div>
+  </div>
 
-<!-- 커뮤니티 이름 -->
-<h3 class="mt-5 fw-bold text-center text-success">중고거래 매물</h3>
+  <!-- 커뮤니티 이름 -->
+  <h3 class="mt-5 fw-bold text-center text-success">중고거래 매물</h3>
 
-<!-- 인기검색어 -->
-<div class="block">
+  <!-- 인기검색어 -->
+  <div class="block">
     <ul id="ticker">
-        {% for search in search_all %}
+      {% for search in search_all %}
         <li class="text-center">
-            <span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span> {{ search.terms }}</li>
-        {% endfor %}
+          <span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span>
+          {{ search.terms }}</li>
+      {% endfor %}
     </ul>
-</div>
+  </div>
 
-<!-- 커뮤니티 글쓰기 -->
-<div class='text-end mt-3'>
+  <!-- 커뮤니티 글쓰기 -->
+  <div class='text-end mt-3'>
     <a class='btn btn-success btn-sm fw-bold' href="{% url 'products:create' %}">글쓰기
       <i class="bi bi-pencil"></i>
     </a>
-</div>
+  </div>
 
-<!-- 검색어 입력 시 검색어에 맞는 글만 출력 -->
-{% if search_result %} {% for search in search_result %} {% if search.user not in request.user.blocking.all %}
-<div class="row d-flex justify-content-between">
-    <div class="card col-6 my-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4">
+  <!-- 검색어 입력 시 검색어에 맞는 글만 출력 -->
+  {% if search_result %}
+    {% for search in search_result %}
+      {% if search.user not in request.user.blocking.all %}
+        <div class="row d-flex justify-content-between">
+          <div class="card col-6 my-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
                 {% if search.image %}
-                <a href="{% url 'products:detail' search.pk %}"><img src="{{ search.image.url }}" alt="{{ search.image }}" class="card-img-top"></a>
+                  <a href="{% url 'products:detail' search.pk %}"><img src="{{ search.image.url }}" alt="{{ search.image }}" class="card-img-top"></a>
                 {% else %}
-                <a href="{% url 'products:detail' search.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
+                  <a href="{% url 'products:detail' search.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
                 {% endif %}
-            </div>
-            <div class="col-md-8">
+              </div>
+              <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <h5>
-                            <span class="fw-bold">
+                  <h5 class="card-title">
+                    <h5>
+                      <span class="fw-bold">
                         <a href="{% url 'products:detail' search.pk %}" style="text-decoration:none" class="text-dark">[No.{{ search.pk }}]
                         </span>{{ search.title }}</a>
-                        </h5>
                     </h5>
-                    <p class="card-text fw-lighter text-muted">
-                        <span class="mt-3">
+                  </h5>
+                  <p class="card-text fw-lighter text-muted">
+                    <span class="mt-3">
                       {% if search.user.profile.image %}
                         <a class="text-dark" href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none">
                           <img src="{{ search.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
@@ -77,14 +84,27 @@
                         </a>
                       {% endif %}
                     </span>
-                        <a href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none" class="text-dark">{{ search.user.username }}</a>
-                    </p>
+                    <a href="{% url 'accounts:profile' search.user.username %}" style="text-decoration:none" class="text-dark">{{ search.user.username }}</a>
+                  </p>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
-{% endif %} {% endfor %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- 모든 글 출력 -->
+  {% else %}
+    <div class="row d-flex justify-content-between">
+      {% for product in products %}
+        {% if product.user not in request.user.blocking.all %}
+          <div class="card col-6 my-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                {% if product.original_image %}
+                  <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
+
 
 
     <!-- 모든 글 출력 -->
@@ -97,21 +117,22 @@
               <div class="col-md-4">
                 {% if product.original_image %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
+
                 {% else %}
-                <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
+                  <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
                 {% endif %}
-            </div>
-            <div class="col-md-8">
+              </div>
+              <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <h5>
-                            <span class="fw-bold">
+                  <h5 class="card-title">
+                    <h5>
+                      <span class="fw-bold">
                         <a href="{% url 'products:detail' product.pk %}" style="text-decoration:none" class="text-dark">[No.{{ product.pk }}]
                         </span>{{ product.title }}</a>
-                        </h5>
                     </h5>
-                    <p class="card-text fw-lighter text-muted">
-                        <span class="mt-3">
+                  </h5>
+                  <p class="card-text fw-lighter text-muted">
+                    <span class="mt-3">
                       {% if product.user.profile.image %}
                         <a class="text-dark" href="{% url 'accounts:profile' product.user.username %}" style="text-decoration:none">
                           <img src="{{ product.user.profile.image.url}}" class="rounded-circle" alt="" style="height: 40px; width:40px;">
@@ -122,18 +143,20 @@
                         </a>
                       {% endif %}
                     </span>
-                        <a href="{% url 'accounts:profile' product.user.username %}" style="text-decoration:none" class="text-dark">{{ product.user.username }}</a>
-                    </p>
+                    <a href="{% url 'accounts:profile' product.user.username %}" style="text-decoration:none" class="text-dark">{{ product.user.username }}</a>
+                  </p>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
-    {% endif %} {% endfor %}
-</div>
 
-{% endif %}
+  {% endif %}
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/search_view.js' %}"></script>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="{% static './css/search_view.css' %}"> {% endblock content %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/search_view.js' %}"></script>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="{% static './css/search_view.css' %}">
+{% endblock content %}
