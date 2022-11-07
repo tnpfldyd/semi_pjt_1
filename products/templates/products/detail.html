@@ -15,13 +15,13 @@
 
       <!-- 상품 정보 -->
       <div class="d-flex flex-column ms-5 mt-2" style="width:50rem">
-        <h2>{{ products.title }}</h2>
+        <h2 class="font">{{ products.title }}</h2>
         <div class="d-flex">
-          <p class="mb-0">조회수
+          <p class="mb-0">{{ products.created_at | date:'y.m.d'}}</p>
+          <p class="mb-0 ms-3">조회수
             {{ products.hit }}</p>
-          <p class="ms-3 mb-0">{{ products.created_at }}</p>
         </div>
-        <h3 class="fw-bold mt-2">{{ products.price }}원</h5>
+        <h3 class="fw-bold mt-2 text-success font">{{ products.price }}원</h5>
         <p class="fs-4 mt-2" style="width:48rem">{{ products.content }}</p>
       </div>
     </div>
@@ -133,6 +133,10 @@
       -ms-transform: scale(2);
       -o-transform: scale(2);
     }
+
+    .font {
+      font-family: 'Noto Sans KR', sans-serif;
+    }
   </style>
 
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd6208aaf90cdbe7ef8ee1aa6baef997"></script>
@@ -167,4 +171,7 @@
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 {% endblock %}

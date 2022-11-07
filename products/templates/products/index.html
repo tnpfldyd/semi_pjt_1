@@ -107,7 +107,7 @@
           <div class="card col-6 my-3" style="max-width: 540px;">
             <div class="row g-0">
               <div class="col-md-4">
-                {% if product.image %}
+                {% if product.original_image %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
                 {% else %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
