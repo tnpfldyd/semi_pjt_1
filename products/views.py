@@ -139,5 +139,6 @@ def search(request):
 
     context = {
         'search_result': search_result,
+        'search': search,
     }
     return render(request, 'products/index.html', context)
