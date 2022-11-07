@@ -9,7 +9,7 @@ class ServiceCenterForm(forms.ModelForm):
             'content',
             'image',
         )
-        label = {
+        labels = {
             'title': '문의 제목',
             'content': '문의 내용',
             'image': '이미지',
