@@ -1,10 +1,9 @@
-{% extends 'base.html' %}
-{% load django_bootstrap5 %}
-{% block content %}
-  <h1>문의하기</h1>
-  <form action="{% url 'service_center:question' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form service_form %}
-    {% bootstrap_button button_type="submit" content="OK" button_class="btn btn-outline-primary"%}
-  </form>
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
+<h1 class="py-3 fw-bold">문의하기</h1>
+<form action="{% url 'service_center:question' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} {% bootstrap_form service_form %}
+    <div class="d-flex justify-content-center">
+        {% bootstrap_button button_type="submit" content="문의하기" button_class="btn btn-outline-primary"%}
+        <a href="{% url 'accounts:quest' %}" class="btn btn-outline-danger ms-2">취소하기</a></div>
+</form>
 {% endblock content %}
