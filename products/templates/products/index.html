@@ -105,19 +105,6 @@
                 {% if product.original_image %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
 
-
-
-    <!-- 모든 글 출력 -->
-  {% else %}
-    <div class="row d-flex justify-content-between">
-      {% for product in products %}
-        {% if product.user not in request.user.blocking.all %}
-          <div class="card col-6 my-3" style="max-width: 540px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                {% if product.original_image %}
-                  <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
-
                 {% else %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
                 {% endif %}
