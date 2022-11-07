@@ -28,14 +28,24 @@
 <h3 class="mt-5 fw-bold text-center text-warning">지역 커뮤니티</h3>
 
 <!-- 인기검색어 -->
+{% if search %}
+
 <div class="block">
     <ul id="ticker">
         {% for search in search_all %}
-        <li class="text-center"><span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span> {{ search.terms }}</li>
+        <a href="?search={{ search.terms }}" class="text-decoration-none text-black"><li class="text-center" ><span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span> {{ search.terms }} </li></a>
         {% endfor %}
     </ul>
 </div>
-
+{% else %}
+<div class="block">
+    <ul id="ticker">
+        {% for search in search_all %}
+        <a href="search/?search={{ search.terms }}" class="text-decoration-none text-black"><li class="text-center" ><span class="fw-bold">현재 인기 검색어 [{{ forloop.counter }}위]</span> {{ search.terms }} </li></a>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 <!-- 커뮤니티 글쓰기 -->
 <div class='text-end mt-3'>
     <a class='btn btn-warning btn-sm fw-bold' href="{% url 'articles:create' %}">글쓰기 <i class="bi bi-pencil"></i></a>
