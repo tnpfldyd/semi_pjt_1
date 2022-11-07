@@ -110,6 +110,7 @@ const messageForm = document.querySelector('#message-form')
         console.log(roomdata)
         roomdiv.appendChild(room)
         roomdiv.appendChild(br)
+        roomdiv.appendChild(br)
       }
     })
   })
@@ -228,6 +229,7 @@ const messageForm = document.querySelector('#message-form')
         room.innerText = `${roomdata[i][1]}\n${roomdata[i][2]}\n${roomdata[i][0]}`
 
         roomdiv.appendChild(room)
+        roomdiv.appendChild(br)
         roomdiv.appendChild(br)
       }
     })
