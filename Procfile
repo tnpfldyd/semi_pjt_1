@@ -1,0 +1,1 @@
+web: gunicorn semi_pjt_1.wsgi --log-file -
