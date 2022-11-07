@@ -96,9 +96,9 @@
         <div class="row g-0">
             <div class="col-md-4">
                 {% if article.image %}
-                <a href="{% url 'articles:detail' article.pk %}"><img src="{{ article.image.url }}" alt="{{ article.image }}" class="card-img-top"></a>
+                <a href="{% url 'articles:detail' article.pk %}"><img src="{{ article.image.url }}" alt="{{ article.image }}" class="card-img-top" style="height: 151px;"></a>
                 {% else %}
-                <a href="{% url 'articles:detail' article.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>
+                <a href="{% url 'articles:detail' article.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top" style="height: 151px;"></a>
                 {% endif %}
             </div>
             <div class="col-md-8">
