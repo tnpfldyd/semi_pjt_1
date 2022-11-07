@@ -66,7 +66,7 @@
             <div class="row g-0">
               <div class="col-md-4" style="position:relative;">
                   <a href="{% url 'products:detail' search.pk %}">
-                    <img src="{{ search.formatted_image.url }}" alt="" class="card-img-top">
+                    <img src="{{ search.formatted_image.url }}" alt="" class="card-img-top" style="height: 151px;">
                     {% if search.sold %}
                       <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
                         <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
@@ -113,7 +113,7 @@
             <div class="row g-0">
               <div class="col-md-4" style="position:relative;">
                 <a href="{% url 'products:detail' product.pk %}">
-                  <img src="{{ product.formatted_image.url }}" alt="" class="card-img-top">
+                  <img src="{{ product.formatted_image.url }}" alt="" class="card-img-top" style="height: 151px;">
                   {% if product.sold %}
                     <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
                       <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
