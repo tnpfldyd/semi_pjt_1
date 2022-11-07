@@ -9,6 +9,8 @@ class User(AbstractUser):
     followings = models.ManyToManyField("self", symmetrical=False, related_name="followers")
     celsius = models.FloatField(default=36.5)
     blocking = models.ManyToManyField('self', symmetrical=False, related_name='blockers')
+    secession = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
