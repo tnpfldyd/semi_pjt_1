@@ -48,8 +48,7 @@
                             <a class="nav-link text-dark fw-bold" href="{% url 'products:index' %}" style="text-decoration:none;">중고거래</a>
                         </li>
                     </ul>
-                    {% block search %}
-                    {% endblock %}
+                    {% block search %} {% endblock %}
                     <a class='btn btn-dark ms-2' href="{% url 'chats:index' %}">채팅하기</a>
 
 
@@ -85,7 +84,7 @@
     <footer class="bg-light position-relative bottom-0" style="height:200px; bottom: 0;">
         <div class="container">
             <p class="pt-5">팀원 | 김재형 김현정 노가빈 이용환</p>
-            <p>회사 소개 | 인재 채용 | 제휴 제안 | 이용 약관 | 개인정보처리방침 | 청소년보호정책 | <span class="fw-bold"><a href="{% url 'accounts:quest' %}" class="text-decoration-none text-black">자주 묻는 질문</a></span></p>
+            <p>Copyright © 2022 used article deal.co.,Ltd. All rights reserved. Contact webmaster for more information. | <span class="fw-bold"><a href="{% url 'accounts:quest' %}" class="text-decoration-none text-black">자주 묻는 질문</a></span></p>
         </div>
 
 

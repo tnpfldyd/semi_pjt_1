@@ -1,22 +1,25 @@
-{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
-{% for message in messages %}
-    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %} {% for message in messages %}
+<div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
-    </div>
+        </button> {{ message }}
+</div>
 {% endfor %}
 <h1>로그인</h1>
 <form action="" method="POST">
-    {% csrf_token %} {% bootstrap_form form %} {% bootstrap_button button_type='submit' content='로그인' %}
+
+    {% csrf_token %} {% bootstrap_form form %}
+    <div class="d-flex justify-content-start">{% bootstrap_button button_type='submit' content='로그인' %}
+
+        <a href="{% url 'accounts:signup' %}" class="btn btn-primary ms-2">회원가입</a>
+    </div>
 </form>
-<a href="{% url 'accounts:signup' %}" class="btn btn-primary mt-2">회원가입</a>
+
 <script>
     window.setTimeout(function() {
-    $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove();
-    });
-}, 1500);
+        $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 1500);
 </script>
 {% endblock content %}
