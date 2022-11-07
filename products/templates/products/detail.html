@@ -71,11 +71,7 @@
     <!-- 작성자가 아닌 경우 -->
     <div class="d-flex justify-content-center">
       {% if request.user != products.user %}
-        <a href="" class="btn btn-outline-warning mx-2">
-          게시글 신고</a>
-      {% endif %}
-      {% if request.user != products.user %}
-        <a href="" class="btn btn-outline-success mx-2">채팅하기</a>
+        <a href="{% url 'chats:first_send' products.user.pk %}" class="btn btn-outline-success mx-2">채팅하기</a>
       {% endif %}
     </div>
 
