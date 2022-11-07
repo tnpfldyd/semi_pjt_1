@@ -15,7 +15,7 @@ class ProductsForm(forms.ModelForm):
             "title": "제목",
             "content":"내용",
             "original_image":"이미지",
-            "price" : "가격",
+            "price" : "가격(원)",
         }
 class LocationForm(forms.ModelForm):
     class Meta:
