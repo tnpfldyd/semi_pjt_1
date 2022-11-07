@@ -100,9 +100,16 @@
         {% if product.user not in request.user.blocking.all %}
           <div class="card col-6 my-3" style="max-width: 540px;">
             <div class="row g-0">
-              <div class="col-md-4">
+              <div class="col-md-4" style="position:relative;">
                 {% if product.original_image %}
-                  <a href="{% url 'products:detail' product.pk %}"><img src="{{ product.formatted_image.url }}" alt="" class="card-img-top"></a>
+                  <a href="{% url 'products:detail' product.pk %}">
+                    <img src="{{ product.formatted_image.url }}" alt="" class="card-img-top">
+                    {% if product.sold %}
+                      <div style="position: absolute; width:100%; font-size:50px;text-align:center;" class="top-0 start-0">
+                        <img class='bg-dark bg-opacity-25 rounded' src="../../../static/images/soldout.png" alt="" style="max-width:171.33px; max-height:171.33px;">
+                      </div>
+                    {% endif %}
+                  </a>
 
                 {% else %}
                   <a href="{% url 'products:detail' product.pk %}"><img src="{% static './images/hmm.png' %}" class="card-img-top"></a>

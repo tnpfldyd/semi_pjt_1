@@ -1,113 +1,131 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load django_bootstrap5 %}
-{% load static %}
-<div class="d-flex justify-content-between mt-5 row">
-  <div class="col-2" style="overflow: auto; height: 400px;" id="roomdiv">
-    {% for messageroom in messagerooms %}
-    {% if request.user == messageroom.to_user %}
-    <a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{messageroom.from_user}}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}<p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
-        {% endif %}</a>
-    
-    {% else %}
-    <a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}"><p>{{ messageroom.to_user }}<br>{% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}{% endif %}<br>{{messageroom.updated_at}}</p>  {% if request.user != messageroom.last_user and messageroom.count != 0  %}
-        <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
-        {% endif %}</a>
-    {% endif %}              
-    {% endfor %}
-    </div>
-  <div class="col-9" id="message" style="overflow: auto; height: 400px;">
-    {% for message in messages %}
-    {% if message.recipient_id != request.user.id %}
-    <div class="d-flex justify-content-end position-relative">
-      <div>
-        <p>{{request.user}}</p>
-          {% if '/static/imo' in message.content %}
-            <img src="{{message.content}}" style='height: 125px; width: 125px;'>
-          {% else %}
-            <p>{{message.content}}</p>
-          {% endif %}
-            <p>{{message.create_at}}</p>
-      </div>
-      {% if not message.read %}
-        <p class="rounded-circle bg-white fw-bold text-center text-warning position-absolute bottom-0 start-50" style="width: 25px;">1</p>
-      {% endif %}
-    </div>
-    {% else %}
-    <div class="d-flex justify-content-start">
-      <div>
-        {% if request.user == room_info.to_user %}
-        {{ room_info.from_user }}
+  {% load django_bootstrap5 %}
+  {% load static %}
+  <div class="d-flex justify-content-between mt-5 row">
+    <div class="col-2" style="overflow: auto; height: 400px;" id="roomdiv">
+      {% for messageroom in messagerooms %}
+        {% if request.user == messageroom.to_user %}
+          <a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}">
+            <p>{{messageroom.from_user}}<br>
+              {% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}
+              {% endif %}<br>{{messageroom.updated_at}}</p>
+            {% if request.user != messageroom.last_user and messageroom.count != 0 %}
+              <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
+            {% endif %}
+          </a>
+
         {% else %}
-        {{ room_info.to_user }}
+          <a class="text-decoration-none position-relative" href="{% url 'chats:detail' messageroom.pk %}">
+            <p>{{ messageroom.to_user }}<br>
+              {% if '/static/imo' in messageroom.last_message %}이모티콘을 전송하였습니다.{% else %}{{messageroom.last_message}}
+              {% endif %}<br>{{messageroom.updated_at}}</p>
+            {% if request.user != messageroom.last_user and messageroom.count != 0 %}
+              <p class="rounded-circle bg-danger fw-bold text-center text-white position-absolute top-0 end-0" style="width: 25px;">{{ messageroom.count }}</p>
+            {% endif %}
+          </a>
         {% endif %}
-        {% if '/static/imo' in message.content %}
-        <img src="{{message.content}}" style='height: 125px; width: 125px;'>
-        {% else %}
-        <p>{{message.content}}</p>
-        {% endif %}
-        <p>{{message.create_at}}</p>
-      </div>
+      {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
-    <p id="to-pk" style="display: none;">{% if request.user.id == room_info.from_user_id %}{{room_info.to_user.pk}}{% else %}{{room_info.from_user.pk}}{% endif %}</p>
-  </div>
-  <div class="col-12 p-0 mt-3">
-    <form id="message-form">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <div class="d-flex justify-content-between">
-        <div class="d-flex">
-          <div class="accordion accordion-flush my-3 p-0" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="ture" aria-controls="collapseOne">
-                  이모티콘 모음
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body d-flex">
-                  <div class="dropup">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      당근이
-                    </a>
-                    <ul class="dropdown-menu" style="width: 600px;">
-                      <div class="row row-cols-4" id="div1">
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/1.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/2.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/3.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/4.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/5.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/6.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/7.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/carrot/8.png' %}" style="width: 125px; height: 125px;"></div>
-                      </div>
-                    </ul>
-                  </div>
-                  <div class="dropup mx-3">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      고양이
-                    </a>
-                    <ul class="dropdown-menu" style="width: 600px;">
-                      <div class="row row-cols-4" id="div1">
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/1.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/2.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/3.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/4.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/5.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/6.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/7.png' %}" style="width: 125px; height: 125px;"></div>
-                        <div><img class="dropdown-item" src="{% static 'imo/cat/8.png' %}" style="width: 125px; height: 125px;"></div>
-                      </div>
-                    </ul>
+    <div class="col-9" id="message" style="overflow: auto; height: 400px;">
+      {% for message in messages %}
+        {% if message.recipient_id != request.user.id %}
+          <div class="d-flex justify-content-end position-relative">
+            <div>
+              <p>{{request.user}}</p>
+              {% if '/static/imo' in message.content %}
+                <img src="{{message.content}}" style='height: 125px; width: 125px;'>
+              {% else %}
+                <p>{{message.content}}</p>
+              {% endif %}
+              <p>{{message.create_at}}</p>
+            </div>
+            {% if not message.read %}
+              <p class="rounded-circle bg-white fw-bold text-center text-warning position-absolute bottom-0 start-50" style="width: 25px;">1</p>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="d-flex justify-content-start">
+            <div>
+              {% if request.user == room_info.to_user %}
+                {{ room_info.from_user }}
+              {% else %}
+                {{ room_info.to_user }}
+              {% endif %}
+              {% if '/static/imo' in message.content %}
+                <img src="{{message.content}}" style='height: 125px; width: 125px;'>
+              {% else %}
+                <p>{{message.content}}</p>
+              {% endif %}
+              <p>{{message.create_at}}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <p id="to-pk" style="display: none;">
+        {% if request.user.id == room_info.from_user_id %}{{room_info.to_user.pk}}
+        {% else %}{{room_info.from_user.pk}}
+        {% endif %}
+      </p>
+    </div>
+    <div class="col-12 p-0 mt-3">
+      <form id="message-form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div class="accordion accordion-flush my-3 p-0" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="ture" aria-controls="collapseOne">
+                    이모티콘 모음
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body d-flex">
+                    <div class="dropup">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        당근이
+                      </a>
+                      <ul class="dropdown-menu" style="width: 600px;">
+                        <div class="row row-cols-4" id="div1">
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/1.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/2.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/3.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/4.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/5.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/6.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/7.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/carrot/8.png' %}" style="width: 125px; height: 125px;"></div>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="dropup mx-3">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        고양이
+                      </a>
+                      <ul class="dropdown-menu" style="width: 600px;">
+                        <div class="row row-cols-4" id="div1">
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/1.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/2.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/3.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/4.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/5.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/6.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/7.png' %}" style="width: 125px; height: 125px;"></div>
+                          <div><img class="dropdown-item" src="{% static 'imo/cat/8.png' %}" style="width: 125px; height: 125px;"></div>
+                        </div>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <a href="{% url 'chats:delete' room_info.pk %}" class="btn btn-outline-danger mx-5">대화 삭제하기</a>
           </div>
-          <a href="{% url 'chats:delete' room_info.pk %}" class="btn btn-outline-danger mx-5">대화 삭제하기</a>
+          {% bootstrap_button button_type = 'submit' content = '전송' %}
         </div>
+
         {% bootstrap_button button_type='submit' content='전송' %}
       </div>
     </form>
@@ -116,7 +134,8 @@
 <div id="mename" style="display: none;">{{request.user.username}}</div>
 <div id="notmename" style="display: none;">{% if request.user == room_info.to_user %}{{ room_info.from_user }}{% else %}{{ room_info.to_user }}{% endif %}</div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/chat.js' %}"></script>
 
-{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
+
+  {% endblock %}
