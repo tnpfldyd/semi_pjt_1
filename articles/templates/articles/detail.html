@@ -71,7 +71,7 @@
         <a href="{% url 'accounts:profile' comment.user.username %}" style="text-decoration:none" class="text-dark">{{ comment.user.username }}</a>
     </div>
     <div>
-        내용 {{ comment.content }}
+        {{ comment.content }}
     </div>
     <div class="d-flex">
         <div class="accordion accordion-flush" id="{{comment.text}}">
@@ -117,7 +117,7 @@
                             <a href="{% url 'accounts:profile' recom.user.username %}" style="text-decoration:none" class="text-dark">{{ recom.user.username }}</a>
                         </div>
                         <div>
-                            답글 내용 {{ recom.content }}
+                            {{ recom.content }}
                         </div>
                         {% endfor %}
                     </div>
