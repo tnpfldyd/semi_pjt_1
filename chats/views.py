@@ -25,7 +25,7 @@ def detail(request, room_pk):
         receiver = user.receiver_user.all()
         if request.user.id != room_info.last_user_id:
             room_info.count = 0
-        room_info.save()
+            room_info.save()
         messages = DirectMessage.objects.filter(room_number_id=room_pk)
         if DirectMessage.objects.filter(room_number_id=room_pk, recipient_id=request.user, read=False).exists():
             temp = DirectMessage.objects.filter(room_number_id=room_pk, recipient_id=request.user, read=False)
