@@ -18,7 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
         if get_user_model().objects.filter(username=username).exists():
             user = get_user_model().objects.get(username=username)
             if user.secession:
-                raise ValidationError('탈퇴일로 부터 1년 동안 재가입은 불가능 합니다. 복구 문의시 고객센터로 연락주시기 바랍니다.😢')
+                raise ValidationError('탈퇴일로 부터 1년 동안 재가입은 불가능 합니다. 복구 문의시 고객센터 XXXX-XXXX 로 연락주시기 바랍니다.😢')
             return username
         return username
 
