@@ -12,7 +12,7 @@
 
 ### 📌 생긴 오류 및 해결
 
-- django-imoji-picker 앱을 사용하여 채팅에서 이모지 전송을 구현하고 싶었으나, 앱을 사용하려면 React와 연동해야 사용가능 할 것 같아서 서버 static 폴더에 이미지를 저장 한 뒤 이미지 박스가 클릭이 될 경우 해당 이미지의 static 파일명 상대에게 javascript를 통하여 비동기로 전송하도록 구현.(
+- django-imoji-picker 앱을 사용하여 채팅에서 이모지 전송을 구현하고 싶었으나, 앱을 사용하려면 React와 연동해야 사용가능 할 것 같아서 서버 static 폴더에 이미지를 저장 한 뒤 이미지 박스가 클릭이 될 경우 해당 이미지의 static 파일명 상대에게 javascript를 통하여 비동기로 전송하도록 구현. static/js/chat.js
 Message DB 에는 파일명만 저장이 되고, 화면에 노출시엔 load static을 활용하여 화면에 노출
 
 ### 📌 서비스 주요 기능
