@@ -1,4 +1,4 @@
-배포 사이트 주소: https://semipjt1.herokuapp.com/
+배포 사이트 주소: https://semipjt1.herokuapp.com/ 무료 종료로 더이상 이용불가..
 ## Semi Project 01
 
 - **기간**: 2022.10.31 ~ 2022.11.07
